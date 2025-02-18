@@ -15,7 +15,8 @@ const Upper = () => {
         <span className="header-title">Ameeffy Tech</span>
       </div>
       <nav className="navigation">
-        <a href="#about">About Me</a>
+        <a href="#home">Home</a>
+        <a href="#about">About Me</a> 
         <a href="#works">Works</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -24,7 +25,8 @@ const Upper = () => {
       </button>
       {menuOpen && (
         <div className="dropdown">
-          <a href="#about" onClick={() => setMenuOpen(false)}>About Me</a>
+          <a href="#home" onClick={() => setMenuOpen(false)}>Home</a>
+          <a href="#about" onClick={() => setMenuOpen(false)}>About Me</a> 
           <a href="#works" onClick={() => setMenuOpen(false)}>Works</a>
           <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
         </div>

@@ -120,6 +120,25 @@ body {
   color: #a5b1c2;
 }
 
+.about-section {
+  text-align: center;
+  padding: 50px 20px;
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+}
+
+.about-section h2 {
+  font-size: 2rem;
+  color: #d1d4e0;
+}
+
+.about-section p {
+  font-size: 1.2rem;
+  color: #a5b1c2;
+  line-height: 1.6;
+}
+
 .works-section {
   text-align: center;
   padding: 40px 20px;
@@ -207,6 +226,14 @@ body {
     font-size: 1rem;
   }
 
+  .about-section h2 {
+    font-size: 1.8rem;
+  }
+
+  .about-section p {
+    font-size: 1rem;
+  }
+
   .footer-section h3 {
     font-size: 1.2rem;
   }
@@ -233,6 +260,14 @@ body {
   }
 
   .my-section p {
+    font-size: 0.9rem;
+  }
+
+  .about-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .about-section p {
     font-size: 0.9rem;
   }
 
