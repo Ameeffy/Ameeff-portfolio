@@ -18,20 +18,16 @@ function App() {
         </div>
 
         <div id="about" className="about-section">
-          <h2>About Me</h2>
-          <br/>
-          
+        <h2>About Me</h2>
+
           <p>
-            I'm a <strong>Mobile and Web Developer</strong> passionate about building interactive and user-friendly applications. 
-            Besides coding, I enjoy <strong>going to the gym</strong> and playing sports like <strong>basketball</strong> and <strong>football</strong>. 
-            I’m also very <strong>family-oriented</strong> and love spending quality time with my loved ones. 
-            Oh, and one more thing—I absolutely <strong>love cats</strong>! 🐱
+          I specialize in <strong>Node.js, JavaScript, CSS, and React Native</strong>, with experience working with <strong>MySQL databases</strong>. 
+          My passion lies in developing scalable and efficient web and mobile applications that enhance user experiences.
           </p>
+
           <p>
-            When I’m not coding or working on new projects, you’ll probably find me lifting weights, on the basketball court, 
-            or chilling with my cat, <strong>Ar-Krung</strong>. I also enjoy <strong>hiking</strong> and <strong>running</strong> to stay active 
-            and appreciate nature. I believe in continuous learning and growth, always striving to 
-            improve my skills and contribute to innovative digital solutions.
+           Outside of coding, I enjoy staying active, engaging in sports, and exploring new challenges. 
+           I have a strong interest in technology and continuous learning, always looking for ways to improve and innovate.
           </p>
         </div>
 
