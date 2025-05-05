@@ -37,7 +37,7 @@ export default function Contact() {
       [name]: value
     });
     
-    // Clear error when user types
+   
     if (errors[name]) {
       setErrors({
         ...errors,
@@ -73,13 +73,13 @@ export default function Contact() {
     if (validateForm()) {
       setIsSubmitting(true);
       
-      // Simulate form submission
+
       setTimeout(() => {
         setIsSubmitting(false);
         setSubmitSuccess(true);
         setSnackbarOpen(true);
         
-        // Reset form after successful submission
+
         setFormData({
           name: '',
           email: '',
@@ -101,7 +101,7 @@ export default function Contact() {
   return (
     <Box component="section" id="contact" className="contact-section" ref={ref}>
       <Container>
-        {/* Section Heading */}
+   
         <Box className={`contact-header ${inView ? 'fade-in-up' : ''}`} style={{ animationDelay: '0.1s' }}>
           <Typography variant="h2" component="h2" className="contact-title">
             Get In Touch
@@ -111,9 +111,9 @@ export default function Contact() {
           </Typography>
         </Box>
         
-        {/* Contact Content */}
+
         <Box className="contact-container">
-          {/* Contact Info */}
+
           <Box className={`contact-info ${inView ? 'fade-in-up' : ''}`} style={{ animationDelay: '0.2s' }}>
             <Box className="contact-info-card">
               <Typography className="contact-text">
@@ -121,7 +121,7 @@ export default function Contact() {
                 If you have a project that you want to get started or need help with 
                 something, feel free to get in touch with me.
               </Typography>
-              
+              <br/>
               <Box className="contact-methods">
                 <Box className="contact-method">
                   <Box className="contact-icon">
@@ -130,7 +130,7 @@ export default function Contact() {
                   <Box className="contact-detail">
                     <Typography className="contact-label">Email</Typography>
                     <Typography className="contact-value">
-                      <a href="mailto:ameef@example.com" className="contact-link">ameef@example.com</a>
+                      <a href="#" className="contact-link">ameeffyadjarail@gmail.com</a>
                     </Typography>
                   </Box>
                 </Box>
@@ -142,7 +142,7 @@ export default function Contact() {
                   <Box className="contact-detail">
                     <Typography className="contact-label">Phone</Typography>
                     <Typography className="contact-value">
-                      <a href="tel:+639123456789" className="contact-link">+63 912 345 6789</a>
+                      <a href="tel:+639123456789" className="contact-link">+63 928 515 5692</a>
                     </Typography>
                   </Box>
                 </Box>
@@ -153,7 +153,7 @@ export default function Contact() {
                   </Box>
                   <Box className="contact-detail">
                     <Typography className="contact-label">Location</Typography>
-                    <Typography className="contact-value">Manila, Philippines</Typography>
+                    <Typography className="contact-value">Baliwasan, Zamboanga city</Typography>
                   </Box>
                 </Box>
               </Box>
@@ -162,8 +162,8 @@ export default function Contact() {
                 <a href="https://www.facebook.com/Ameeffy" className="social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
                   <FacebookIcon />
                 </a>
-                <a href="https://x.com/Meeffmeeff?s=21" className="social-link" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
-                  <TwitterIcon />
+                <a href="https://github.com/Ameeffy?tab=repositories" className="social-link" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+                  <GitHubIcon />
                 </a>
                 <a href="https://www.linkedin.com/in/ameeffy-adjarail-889477363/" className="social-link" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
                   <LinkedInIcon />
@@ -175,7 +175,7 @@ export default function Contact() {
             </Box>
           </Box>
           
-          {/* Contact Form */}
+
           <Box className={`contact-form-container ${inView ? 'fade-in-up' : ''}`} style={{ animationDelay: '0.3s' }}>
             {submitSuccess ? (
               <Box className="success-message">
