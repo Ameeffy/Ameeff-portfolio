@@ -3,10 +3,10 @@ import { Box, Typography, Grid, Container } from '@mui/material';
 import { useInView } from 'react-intersection-observer';
 import '../assets/premium-skills.css';
 
-// Skill data
+
 const skills = [
   {
-    category: "Frontend",
+    category: "Frontend Engineering",
     items: [
       { name: "HTML", level: 90 },
       { name: "CSS", level: 85 },
@@ -16,41 +16,31 @@ const skills = [
     ]
   },
   {
-    category: "Backend",
+    category: "Backend developemnt",
     items: [
       { name: "Node.js", level: 70 },
-      { name: "Express", level: 65 },
-      { name: "MongoDB", level: 60 },
-      { name: "Firebase", level: 75 }
+      { name: "Django", level: 65 },
+      { name: "PHP", level: 60 },
     ]
   },
   {
-    category: "Tools",
+    category: "Software Development Tools",
     items: [
-      { name: "Git", level: 80 },
+      { name: "Expo Go App", level: 90 },
+      { name: "Git", level: 90 },
       { name: "Figma", level: 65 },
       { name: "VS Code", level: 90 },
-      { name: "Webpack", level: 60 }
-    ]
-  },
-  {
-    category: "UI/UX Design",
-    items: [
-      { name: "Wireframing", level: 85 },
-      { name: "Prototyping", level: 80 },
-      { name: "User Research", level: 75 },
-      { name: "Responsive Design", level: 90 },
-      { name: "Adobe XD", level: 70 }
+      
     ]
   },
   {
     category: "Mobile Development",
     items: [
-      { name: "React Native", level: 80 },
-      { name: "Flutter", level: 65 },
+      { name: "React Native", level: 90 },
+      { name: "Mobile UI Design", level: 85 },
       { name: "iOS Development", level: 60 },
-      { name: "Android Development", level: 55 },
-      { name: "Mobile UI Design", level: 85 }
+      { name: "Android Development", level: 55 }
+      
     ]
   }
 ];
@@ -64,7 +54,7 @@ export default function Skills() {
   return (
     <Box component="section" id="skills" className="skills-section" ref={ref}>
       <Container>
-        {/* Section Heading */}
+     
         <Box className="skills-header">
           <Typography variant="h2" component="h2" className="skills-title">
             Skills
@@ -77,7 +67,7 @@ export default function Skills() {
           </Typography>
         </Box>
 
-        {/* Skills Grid */}
+
         <Grid container spacing={4} className="skills-container">
           {skills.map((category, index) => (
             <Grid 
