@@ -139,40 +139,14 @@ const certificates = [
   },
   {
     id: 27,
-    title: 'Responsive Web Design',
-    link: 'https://example.com/certificate/131',
+    title: 'AI ML Projects',
+    link: 'https://simpli-web.app.link/e/PsH0anjh7Sb',
   },
   {
     id: 28,
-    title: 'Responsive Web Design',
-    link: 'https://example.com/certificate/131',
+    title: 'Introduction to Neural Network',
+    link: 'https://simpli-web.app.link/e/t4sc79mh7Sb',
   },
-  {
-    id: 29,
-    title: 'Responsive Web Design',
-    link: 'https://example.com/certificate/131',
-  },
-  {
-    id: 30,
-    title: 'Responsive Web Design',
-    link: 'https://example.com/certificate/131',
-  },
-  {
-    id: 31,
-    title: 'Responsive Web Design',
-    link: 'https://example.com/certificate/131',
-  },
-  {
-    id: 32,
-    title: 'Responsive Web Design',
-    link: 'https://example.com/certificate/131',
-  },
-  {
-    id: 33,
-    title: 'Responsive Web Design',
-    link: 'https://example.com/certificate/131',
-  },
-
 ];
 const ITEMS_PER_PAGE = 9;
 
