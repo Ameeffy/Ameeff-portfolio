@@ -1,0 +1,364 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700;900&family=Montserrat:wght@300;400;500;600;700;900&display=swap');
+
+
+:root {
+
+  --navbar-bg: rgb(1, 1, 2);
+  --navbar-bg-scroll: rgba(12, 16, 24, 0.9);
+  --primary: rgb(50, 69, 99);
+  --secondary: rgb(43, 58, 84);
+  --primary-rgb: 50, 69, 99;
+  --secondary-rgb: 43, 58, 84;
+  
+
+  --dark-bg: rgb(43, 58, 84);
+  --premium-bg: rgb(242, 247, 253);
+  --light-bg: rgb(235, 242, 250);
+  --text-primary: rgb(35, 47, 67);
+  --text-secondary: rgb(43, 58, 84);
+  --accent: rgb(225, 235, 245);
+  --accent-red: rgb(180, 50, 50); 
+  
+
+  --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+  --max-width: 1400px;
+  --border-radius: 12px;
+  --shadow: 0 10px 30px -15px rgba(50, 69, 99, 0.15);
+  --shadow-light: 0 10px 30px -15px rgba(50, 69, 99, 0.1);
+  --shadow-lg: 0 20px 30px -15px rgba(50, 69, 99, 0.2);
+  --ease-out: ease-out;
+  --ease-out-cubic: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  background-color: var(--premium-bg);
+  color: var(--text-primary);
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) var(--light-bg);
+}
+
+/* Premium App Wrapper */
+.premium-app {
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Premium Background */
+.premium-content {
+  position: relative;
+  padding-top: 100px;
+  min-height: 100vh;
+  background-color: var(--premium-bg);
+  overflow: hidden;
+}
+
+.premium-gradient-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--premium-bg);
+  opacity: 0.9;
+  z-index: -2;
+}
+
+.premium-pattern-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(rgba(200, 220, 245, 0.9) 1px, transparent 1px),
+    radial-gradient(rgba(200, 220, 245, 0.9) 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-position: 0 0, 25px 25px;
+  opacity: 0.4;
+  z-index: -1;
+}
+
+/* Premium Container */
+.premium-container {
+  max-width: var(--max-width);
+  width: 100%;
+  padding: 0 24px;
+  margin: 0 auto;
+}
+
+/* Premium Header - Keep dark styling */
+.premium-header {
+  background-color: var(--navbar-bg) !important;
+  transition: var(--transition) !important;
+}
+
+.premium-header.scrolled {
+  background-color: var(--navbar-bg-scroll) !important;
+  box-shadow: 0 10px 30px -10px rgba(5, 16, 36, 0.5) !important;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  background: transparent;
+  border: none;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--primary);
+  transition: var(--transition);
+  margin-left: 16px;
+}
+
+.theme-toggle:hover {
+  background-color: rgba(180, 50, 50, 0.1);
+}
+
+.theme-toggle svg {
+  font-size: 22px;
+}
+
+/* Rest of the CSS with updated colors */
+.premium-logo {
+  color: #ffffff !important; /* Always white logo text */
+  font-family: var(--font-sans) !important;
+  text-transform: none !important;
+  letter-spacing: 1px !important;
+  transition: var(--transition) !important;
+  position: relative !important;
+}
+
+.premium-logo:hover {
+  color: var(--accent-red) !important; /* Dark red on hover */
+  transform: translateY(-2px) !important;
+}
+
+.premium-contact-info {
+  color: #8892b0 !important; /* Lighter color for navbar contact info */
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  transition: var(--transition) !important;
+  padding: 6px 0 !important;
+  border-radius: 4px !important;
+}
+
+.contact-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  color: #ccd6f6 !important;
+  transition: var(--transition) !important;
+  text-decoration: none !important;
+  padding: 4px 8px !important;
+  border-radius: 4px !important;
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.contact-item:hover {
+  color: var(--accent-red) !important;
+  background-color: rgba(255, 255, 255, 0.07) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.contact-divider {
+  color: #233554 !important; /* Accent color for navbar divider */
+  font-size: 10px !important;
+}
+
+.premium-nav-link {
+  color: #ffffff !important; /* White text for navbar links */
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  text-decoration: none !important;
+  padding: 8px 12px !important;
+  border-radius: 4px !important;
+  transition: var(--transition) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.premium-nav-link::before {
+  content: '' !important;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 0 !important;
+  height: 2px !important;
+  background-color: var(--accent-red) !important;
+  transition: var(--transition) !important;
+}
+
+.premium-nav-link:hover {
+  color: var(--accent-red) !important;
+}
+
+.premium-nav-link:hover::before {
+  width: 100% !important;
+}
+
+.premium-nav-link.active {
+  color: var(--accent-red) !important;
+}
+
+.premium-nav-link.active::before {
+  width: 100% !important;
+  background-color: var(--accent-red) !important;
+}
+
+.premium-menu-button {
+  color: var(--primary) !important;
+}
+
+.premium-mobile-menu .MuiPaper-root {
+  background-color: var(--navbar-bg) !important;
+  border: 1px solid #233554 !important;
+  border-radius: 8px !important;
+  margin-top: 12px !important;
+}
+
+.premium-menu-link {
+  color: #ffffff !important; 
+  text-decoration: none !important;
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  display: block !important;
+  width: 100% !important;
+  padding: 10px 5px !important;
+  text-align: center !important;
+  transition: var(--transition) !important;
+}
+
+.premium-menu-link:hover, 
+.premium-menu-link.active {
+  color: var(--accent-red) !important;
+}
+
+/* Section Divider */
+.premium-section-divider {
+  margin: 80px auto;
+  width: 100%;
+  max-width: 400px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--accent), transparent);
+  position: relative;
+}
+
+.premium-section-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background-color: var(--accent-red);
+  border-radius: 50%;
+  box-shadow: 0 0 15px 5px rgba(180, 50, 50, 0.3);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 4rem;
+  font-weight: 900;
+}
+
+h2 {
+  font-size: 3rem;
+  font-weight: 800;
+}
+
+h3 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+p {
+  font-family: var(--font-sans);
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Animation Classes */
+.fade-in-up {
+  animation: fadeInUp 0.6s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scroll Behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--light-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--accent);
+  border-radius: 4px;
+  border: 2px solid var(--light-bg);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 3rem;
+  }
+  
+  h2 {
+    font-size: 2.5rem;
+  }
+  
+  h3 {
+    font-size: 2rem;
+  }
+  
+  .premium-section-divider {
+    margin: 60px auto;
+  }
+  
+  .premium-content {
+    padding-top: 80px;
+  }
+} 
