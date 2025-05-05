@@ -45,7 +45,7 @@ const Blog = () => {
             Educational Tour Blogs
           </Typography>
           <Typography className="blog-subtitle">
-            My development journey documenting the process of building web applications
+            A 7-day journey of learning and discovery through our educational tour experience
           </Typography>
         </Box>
 
@@ -91,7 +91,7 @@ const Blog = () => {
         </div>
       </Container>
 
-      {/* Blog Detail Modal */}
+
       <Modal
         open={modalOpen}
         onClose={handleCloseModal}
