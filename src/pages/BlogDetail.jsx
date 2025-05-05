@@ -81,7 +81,7 @@ const BlogDetail = () => {
               <Typography variant="h1" className="blog-detail-title">
                 {blog.title}
               </Typography>
-              <Typography variant="subtitle1" className="blog-detail-subtitle">
+              <Typography variant="subtitle1" className="blog-detail-title">
                 {blog.summary}
               </Typography>
             </Box>
