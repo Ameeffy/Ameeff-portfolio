@@ -16,7 +16,7 @@ import { Link } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import CloseIcon from '@mui/icons-material/Close';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import '../assets/premium-blog.css';
+import '../assets/blog.css';
 import { blogData } from '../data/blogData';
 
 const Blog = () => {
