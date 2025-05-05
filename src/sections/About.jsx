@@ -63,7 +63,7 @@ const About = () => {
                 My Philosophy
               </Typography>
               <Typography variant="body2" className="philosophy-text">
-                "I believe that great technology should be both powerful and invisible. My goal is to create digital experiences that not only look beautiful but also solve real problems and bring joy to users."
+                "Indeed, with hardship comes ease." – <i>Fa-inna ma'al usri yusra</i> (Qur'an 94:6)."
               </Typography>
             </Box>
             
