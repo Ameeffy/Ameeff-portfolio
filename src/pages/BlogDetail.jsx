@@ -12,7 +12,7 @@ import {
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import Header from '../components/Header';
+
 import '../assets/blog-detail.css';
 
 
@@ -113,7 +113,8 @@ const BlogDetail = () => {
                   </Typography>
                   
                 
-                  
+                  <br />
+                  <br />
                   <Typography variant="h4" className="blog-detail-subheading">
                     Photo Gallery
                   </Typography>
@@ -184,7 +185,7 @@ const BlogDetail = () => {
                 <Box className="blog-detail-sidebar">
                   <Box className="blog-sidebar-section">
                     <Typography variant="h6" className="blog-sidebar-heading">
-                      Recent Posts
+                      Navigations
                     </Typography>
                     <Box className="blog-sidebar-posts">
                       {blogData
