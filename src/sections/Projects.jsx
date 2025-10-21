@@ -13,7 +13,7 @@ const projects = [
     image: 'project-img/work0.png',
     tech: ['Node.Js', 'MySql', 'Bootstrap', 'CSS'],
     liveLink: 'https://finalccspayment.onrender.com/',
-    githubLink: 'https://github.com/Ameeffy/finalCCSPAYMENT.git',
+    githubLink: 'https://github.com/Ameeffy/finalCCSPAYMENT.gita',
   },
   {
     id: 2,
@@ -22,7 +22,7 @@ const projects = [
     image: 'project-img/work2.jpg',
     tech: ['React Native', 'Expo Go', 'Vector Icons'],
     liveLink: 'https://expo.dev/accounts/ameeffy/projects/ccspayment/builds/7d83470e-f38d-4676-9b12-cb1e644f6da0',
-    githubLink: 'https://github.com/Ameeffy/mobileccspayment.git',
+    githubLink: 'https://github.com/Ameeffy/mobileccspayment.gita',
   },
   {
     id: 3,
@@ -31,7 +31,7 @@ const projects = [
     image: 'project-img/work3.png',
     tech: ['Django', 'Bootstrap', 'Chart.js', 'CSS'],
     liveLink: '/livedemoexpired',
-    githubLink: 'https://github.com/example',
+    githubLink: 'https://github.com/examplea',
   },
   {
     id: 4,
@@ -40,7 +40,7 @@ const projects = [
     image: 'project-img/work4.png',
     tech: ['PHP', 'Bootstrap', 'Chart.js', 'MySql'],
     liveLink: '/livedemoexpired',
-    githubLink: 'https://github.com/Ameeffy/goodysfood.git',
+    githubLink: 'https://github.com/Ameeffy/goodysfood.gita',
   },
   {
     id: 5,
@@ -49,7 +49,7 @@ const projects = [
     image: 'project-img/work5.png',
     tech: ['Django', 'Bootstrap', 'SqlLite'],
     liveLink: '/livedemoexpired',
-    githubLink: 'https://github.com/Ameeffy/djangolostandfoundapp.git',
+    githubLink: 'https://github.com/Ameeffy/djangolostandfoundapp.gita',
   },
   {
     id: 6,
@@ -58,7 +58,7 @@ const projects = [
     image: 'project-img/work6.png',
     tech: ['Django', 'Machine Learning', 'CSS'],
     liveLink: '/livedemoexpired',
-    githubLink: 'https://github.com/Ameeffy/GrandD.git',
+    githubLink: 'https://github.com/Ameeffy/GrandD.gita',
   },
   {
     id: 7,
@@ -67,7 +67,7 @@ const projects = [
     image: 'project-img/sidework1.png',
     tech: ['React', 'CSS', 'Javascript'],
     liveLink: 'https://ameeff-elisan-todolist.netlify.app/',
-    githubLink: 'https://github.com/Kobii2214/todolist',
+    githubLink: 'https://github.com/Kobii2214/todolista',
   },
   {
     id: 8,
@@ -76,7 +76,7 @@ const projects = [
     image: 'project-img/sidework2.png',
     tech: ['JavaScript', 'OpenWeather API', 'CSS3'],
     liveLink: 'https://pokeguide-elisan-adjarail.netlify.app/',
-    githubLink: 'https://github.com/Kobii2214/pokeguide',
+    githubLink: 'https://github.com/Kobii2214/pokeguidea',
   },
    {
     id: 9,
