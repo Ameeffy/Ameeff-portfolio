@@ -12,27 +12,34 @@ const Education = () => {
   const educationData = [
     {
       id: 1,
+      school: "Bulacan State University",
+      degree: "Master of Science in Information Technoloigy • 2025 – Present",
+      description: "Fullstack developer and project management ",
+      logo: "/bulsu.jpg"
+    },
+    {
+      id: 2,
       school: "Western Mindanao State University",
       degree: "BS in Information Technology • 2021 – Present",
       description: "Mobile and Web hybrid development and database management",
       logo: "/wmsu.png"
     },
     {
-      id: 2,
+      id: 3,
       school: "Filipino Turkish Tolerance School",
       degree: "Junior & Senior High School – HUMSS Strand • 2015 – 2021",
       description: "95% with High Honor | Athletic Award",
       logo: "/turkish-school.jpg"
     },
     {
-      id: 3,
+      id: 4,
       school: "Bongao Adventist Elementary School",
       degree: "Elementary • 2012 – 2015",
       description: "Silver Medalist | Excellence Award, Best in Math",
       logo: "/adventist.png"
     },
     {
-      id: 4,
+      id: 5,
       school: "Notre Dame of Bongao",
       degree: "Kindergarten & Elementary • 2008 – 2012",
       description: "Top 3 Student in class",
