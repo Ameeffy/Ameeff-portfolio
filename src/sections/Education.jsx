@@ -13,7 +13,7 @@ const Education = () => {
     {
       id: 1,
       school: "Bulacan State University",
-      degree: "Master of Science in Information Technoloigy • 2025 – Present",
+      degree: "Master of Science in Information Technology • 2025 – Present",
       description: "Fullstack developer and project management ",
       logo: "/R.jpg"
     },
