@@ -78,6 +78,15 @@ const projects = [
     liveLink: 'https://pokeguide-elisan-adjarail.netlify.app/',
     githubLink: 'https://github.com/Kobii2214/pokeguide',
   },
+   {
+    id: 9,
+    name: 'TRAC President Appointment System',
+    desc: 'This system is ongoing.',
+    image: 'project-img/Work7.png',
+    tech: ['JavaScript', 'OpenWeather API', 'CSS3'],
+    liveLink: 'Facebook.com',
+    githubLink: 'https://www.bing.com/search?q=bulsu+logo+png&qs=AS&pq=bulsu+logo&sk=HS1&sc=12-10&cvid=F2AF6AEBC5624EAC9B42D7103F9C7D79&FORM=QBRE&sp=2&lq=0&ntref=1',
+  },
 ];
 
 export default function Projects() {
