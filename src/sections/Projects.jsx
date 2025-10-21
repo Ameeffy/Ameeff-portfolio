@@ -83,7 +83,7 @@ const projects = [
     name: 'TRAC President Appointment System',
     desc: 'This system is ongoing.',
     image: 'project-img/Work7.png',
-    tech: ['JavaScript', 'Tailwind CSS'],
+    tech: ['MYSQL', 'Tailwind CSS', 'Node JS'],
     liveLink: 'Facebook.com',
     githubLink: 'Facebook.com',
   },
