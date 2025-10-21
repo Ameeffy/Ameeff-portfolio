@@ -50,7 +50,9 @@ const About = () => {
             </Typography>
             
             <Typography variant="body1" className="bio-text">
-            I am Ar-Ameeff M. Adjarail an Executive Secretary of the office of the President of Tawi-tawi Regional Agriculutral College, a 22-year-old aspiring full-stack developer from Western Mindanao State University. My passion for programming started at a young age, and it has grown into a deep commitment to building functional, creative, and user-friendly digital solutions. I specialize in both mobile and web development, and I enjoy turning complex problems into elegant code.
+            I am Ar-Ameeff M. Adjarail, and I serve as the Executive Secretary of the Office of the President at Tawi-Tawi Regional Agricultural College. I am also a College Instructor I teaching in the BSIT Department at the college.
+
+I am a 22-year-old aspiring full-stack developer from Western Mindanao State University. My passion for programming began at a young age and has since evolved into a deep commitment to creating functional, creative, and user-friendly digital solutions. I specialize in both mobile and web development, and I genuinely enjoy transforming complex problems into elegant code.
             </Typography>
     
             
