@@ -81,7 +81,7 @@ const projects = [
    {
     id: 9,
     name: 'TRAC President Appointment System',
-    desc: 'This system is ongoing.',
+    desc: 'I am creating an ongoing appointment system for the Office of the President of Tawi-Tawi Regional Agricultural College.',
     image: 'project-img/Work7.png',
     tech: ['MYSQL', 'Tailwind CSS', 'Node JS'],
     liveLink: 'Facebook.com',
