@@ -12,15 +12,15 @@ const skills = [
       { name: "CSS", level: 85 },
       { name: "JavaScript", level: 80 },
       { name: "React", level: 85 },
-      { name: "Material UI", level: 75 }
+      { name: "Material UI", level: 90 }
     ]
   },
   {
     category: "Backend developemnt",
     items: [
-      { name: "Node.js", level: 70 },
-      { name: "Django", level: 65 },
-      { name: "PHP", level: 60 },
+      { name: "Node.js", level: 95 },
+      { name: "Django", level: 90 },
+      { name: "PHP", level: 90 },
     ]
   },
   {
@@ -28,7 +28,7 @@ const skills = [
     items: [
       { name: "Expo Go App", level: 90 },
       { name: "Git", level: 90 },
-      { name: "Figma", level: 65 },
+      { name: "Figma", level: 85 },
       { name: "VS Code", level: 90 },
       
     ]
@@ -38,8 +38,8 @@ const skills = [
     items: [
       { name: "React Native", level: 90 },
       { name: "Mobile UI Design", level: 85 },
-      { name: "iOS Development", level: 60 },
-      { name: "Android Development", level: 55 }
+      { name: "iOS Development", level: 75 },
+      { name: "Android Development", level: 80 }
       
     ]
   }
