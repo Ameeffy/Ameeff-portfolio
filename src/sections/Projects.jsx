@@ -85,7 +85,7 @@ const projects = [
     image: 'project-img/Work7.png',
     tech: ['JavaScript', 'Tailwind CSS'],
     liveLink: 'Facebook.com',
-    githubLink: 'https://www.bing.com/search?q=bulsu+logo+png&qs=AS&pq=bulsu+logo&sk=HS1&sc=12-10&cvid=F2AF6AEBC5624EAC9B42D7103F9C7D79&FORM=QBRE&sp=2&lq=0&ntref=1',
+    githubLink: 'Facebook.com',
   },
 ];
 
