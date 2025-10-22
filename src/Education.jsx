@@ -3,7 +3,7 @@ import { Box, Typography, Card, CardContent, Avatar, Stack } from '@mui/material
 const educationData = [
   {
     school: 'Western Mindanao State University',
-    degree: 'BS in Information Technology • 2021 – Present',
+    degree: 'BS in Information Technology • 2021 – 2025',
     details: 'Mobile and Web hybrid development and database management',
     logo: 'https://upload.wikimedia.org/wikipedia/en/7/7e/Western_Mindanao_State_University_seal.png',
   },
