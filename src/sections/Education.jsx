@@ -20,7 +20,7 @@ const Education = () => {
     {
       id: 2,
       school: "Western Mindanao State University",
-      degree: "BS in Information Technology • 2021 – Present",
+      degree: "Bachelor of Science in Information Technology • 2021 – 2025",
       description: "Mobile and Web hybrid development and database management",
       logo: "/wmsu.png"
     },
