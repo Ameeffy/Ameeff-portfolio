@@ -1,0 +1,139 @@
+AMEEFFY PORTFOLIO — SAFE GITHUB UPDATE WITHOUT RUNNING NPM INSTALL AGAIN
+========================================================================
+
+This package is designed to MERGE into your existing local repository.
+It does not require deleting the existing GitHub repository.
+It preserves existing files and adds/restores the complete blog galleries.
+
+IMPORTANT
+---------
+1. Do not delete the hidden .git folder.
+2. Do not use ROBOCOPY /MIR because /MIR can delete destination files.
+3. Use /E exactly as shown below. /E copies and merges without erasing extra files.
+4. You do not need npm install again because package.json dependencies were not changed.
+5. GitHub and Netlify install dependencies automatically during deployment.
+
+A. EXTRACT THE NEW ZIP
+----------------------
+Extract Ameeff-portfolio-preserved-advanced.zip to:
+
+C:\Users\arame\Desktop\pagtripan]\Ameeff-portfolio-preserved-advanced
+
+Open that extracted folder and make sure these are directly visible:
+
+src
+public
+package.json
+package-lock.json
+index.html
+netlify.toml
+vite.config.js
+
+There must not be another portfolio folder inside it.
+
+B. OPEN YOUR EXISTING GIT REPOSITORY
+------------------------------------
+Open Command Prompt and run:
+
+cd /d "C:\Users\arame\Desktop\pagtripan]\Ameeff-portfolio"
+git status
+git pull origin main
+
+Optional but recommended safety backup:
+
+git branch backup-before-journal-restoration
+
+C. MERGE THE NEW VERSION WITHOUT DELETING ANYTHING
+--------------------------------------------------
+Run:
+
+robocopy "C:\Users\arame\Desktop\pagtripan]\Ameeff-portfolio-preserved-advanced" "C:\Users\arame\Desktop\pagtripan]\Ameeff-portfolio" /E /XD .git node_modules dist
+
+Normal ROBOCOPY result codes such as 1, 2, or 3 usually mean files were copied.
+Do not use /MIR.
+
+D. CHECK THE PROJECT
+--------------------
+Return to your repository:
+
+cd /d "C:\Users\arame\Desktop\pagtripan]\Ameeff-portfolio"
+dir
+git status
+
+You should see src, public, package.json, and other project files directly in this folder.
+There should be no extra nested Ameeff-portfolio folder.
+
+E. OPTIONAL LOCAL TEST — NO NPM INSTALL
+---------------------------------------
+When your existing node_modules folder is still present, run only:
+
+npm run dev
+
+Open the local address shown by Vite, usually:
+
+http://localhost:5173
+
+Press Ctrl+C when done.
+
+Do not run npm install again unless:
+- node_modules was deleted, or
+- package.json dependencies changed.
+
+You can push to GitHub even without testing locally. Netlify will install the dependencies during its build.
+
+F. COMMIT AND PUSH
+------------------
+Run:
+
+git add -A
+git commit -m "Restore full blog galleries and enhance portfolio analytics"
+git push origin main
+
+If GitHub authentication is requested:
+
+gh auth login
+
+Choose GitHub.com, HTTPS, Yes, and Login with a web browser. Then run:
+
+git push origin main
+
+G. UPDATE NETLIFY
+-----------------
+Netlify should deploy automatically after the push.
+
+If it does not update:
+
+Netlify Dashboard
+> ameeffy-portfolio
+> Deploys
+> Trigger deploy
+> Clear cache and deploy site
+
+Build settings:
+
+Production branch: main
+Base directory: leave empty
+Build command: npm run build
+Publish directory: dist
+
+After the deployment says Published, open:
+
+https://ameeffy-portfolio.netlify.app/
+
+Then press Ctrl+F5 or open an Incognito window.
+
+FUTURE UPDATES — SAME SIMPLE WORKFLOW
+-------------------------------------
+For future code updates, you normally only need:
+
+cd /d "C:\Users\arame\Desktop\pagtripan]\Ameeff-portfolio"
+git pull origin main
+
+Copy or edit the new files, then:
+
+git status
+git add -A
+git commit -m "Describe the portfolio update"
+git push origin main
+
+npm install is not part of the normal Git update workflow.

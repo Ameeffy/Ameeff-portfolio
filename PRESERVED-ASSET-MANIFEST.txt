@@ -1,0 +1,142 @@
+PRESERVED ASSET MANIFEST
+Generated: 25 July 2026
+
+All original public.zip files and all files from Ameeff-portfolio-main (4).zip were merged without using a delete/mirror operation.
+
+BLOG DAY PHOTOS
+Day 1/1.jpg
+Day 1/2.jpg
+Day 1/3.jpg
+Day 1/4.jpg
+Day 1/5.jpg
+Day 1/6.jpg
+Day 2/1.jpg
+Day 2/2.jpg
+Day 2/3.jpg
+Day 2/4.jpg
+Day 2/5.jpg
+Day 2/6.jpg
+Day 3/1.jpg
+Day 3/2.jpg
+Day 3/3.jpg
+Day 3/4.jpg
+Day 3/5.jpg
+Day 3/6.jpg
+Day 4/1.jpg
+Day 4/2.jpg
+Day 4/3.jpg
+Day 4/4.jpg
+Day 4/5.jpg
+Day 4/6.jpg
+Day 5/1.jpg
+Day 5/2.jpg
+Day 5/3.jpg
+Day 5/4.jpg
+Day 5/5.jpg
+Day 5/6.jpg
+Day 6/1.jpg
+Day 6/2.jpg
+Day 6/3.jpg
+Day 6/4.jpg
+Day 6/5.jpg
+Day 6/6.jpg
+Day 7/1.jpg
+Day 7/2.jpg
+Day 7/3.jpg
+Day 7/4.jpg
+Day 7/5.jpg
+Day 7/6.jpg
+Day 8/1.jpg
+Day 8/2.jpg
+Day 8/3.jpg
+Day 8/4.jpg
+Day 8/5.jpg
+Day 8/6.jpg
+Day 9/1.jpg
+Day 9/2.jpg
+Day 9/3.jpg
+Day 9/4.jpg
+Day 9/5.jpg
+Day 9/6.jpg
+Day 9/IMG_6447.HEIC
+Day 9/IMG_9006.HEIC
+Day 9/IMG_9262.HEIC
+Day 9/IMG_9500.HEIC
+Day 9/IMG_9663.JPG
+Day 9/IMG_9677.HEIC
+Main-img/Day 2.jpg
+Main-img/Day 3.jpg
+Main-img/Day 4.jpg
+Main-img/Day 5.jpg
+Main-img/Day 6.jpg
+Main-img/Day 7.jpg
+Main-img/Day 8.jpg
+Main-img/Day 9.jpg
+
+MAIN BLOG IMAGES
+Main-img/1.jpg
+Main-img/2.jpg
+Main-img/3.jpg
+Main-img/4.jpg
+Main-img/5.jpg
+Main-img/6.jpg
+Main-img/7.jpg
+Main-img/8.jpg
+Main-img/9.jpg
+Main-img/Day 2.jpg
+Main-img/Day 3.jpg
+Main-img/Day 4.jpg
+Main-img/Day 5.jpg
+Main-img/Day 6.jpg
+Main-img/Day 7.jpg
+Main-img/Day 8.jpg
+Main-img/Day 9.jpg
+
+PROJECT IMAGES
+assets/projects/Screenshot (74).png
+assets/projects/Screenshot (75).png
+assets/projects/Screenshot (76).png
+assets/projects/sidework1.webp
+assets/projects/sidework2.webp
+assets/projects/trac-certification.svg
+assets/projects/work0.webp
+assets/projects/work1.webp
+assets/projects/work2.webp
+assets/projects/work3.webp
+assets/projects/work4.webp
+assets/projects/work5.webp
+assets/projects/work6.webp
+assets/projects/work7.webp
+project-img/Work7.png
+project-img/sidework1.png
+project-img/sidework2.png
+project-img/work0.png
+project-img/work1.png
+project-img/work2.jpg
+project-img/work3.png
+project-img/work4.png
+project-img/work5.png
+project-img/work6.png
+
+CERTIFICATES AND MEMBERSHIPS
+assets/certificates/ched-raise-appearance.webp
+assets/certificates/ched-raise-participation.webp
+assets/certificates/climate-action-forum.webp
+assets/certificates/dbm-budget-forum.webp
+assets/certificates/dbm-capacity-building.webp
+assets/certificates/higher-ed-summit-appearance.webp
+assets/certificates/higher-ed-summit-participation-a.webp
+assets/certificates/higher-ed-summit-participation-b.webp
+assets/certificates/masts-games.webp
+assets/certificates/pasuc-midterm.webp
+assets/certificates/philarm-elite.webp
+assets/certificates/presidents-summit.webp
+assets/certificates/psite-appearance.webp
+assets/certificates/psite-participation.webp
+assets/certificates/strategic-directions.webp
+assets/certificates/supervisory-development.webp
+assets/certificates/sustaining-traditions.webp
+assets/certificates/trac-team-building.webp
+assets/certificates/uaqte-reorientation.webp
+assets/memberships/codec-membership.webp
+assets/memberships/philarm-membership.webp

@@ -1,14 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { BrowserRouter, Link, Navigate, Route, Routes, useLocation, useSearchParams } from 'react-router-dom';
 import {
-  blogPosts,
   education,
   learningPrograms,
   memberships,
   projects,
   simplilearnCertificates,
   skills,
+  researchProfiles,
 } from './data';
+import { blogData } from './blogData';
 
 const navItems = [
   ['Home', 'home'],
@@ -260,26 +261,74 @@ function About() {
 
 function Blog() {
   const [selected, setSelected] = useState(null);
+  const [focusImage, setFocusImage] = useState(null);
+
+  const openStory = (post) => {
+    setSelected(post);
+    setFocusImage(post.coverImage);
+  };
+
+  const moveStory = (direction) => {
+    if (!selected) return;
+    const nextIndex = (blogData.findIndex((post) => post.day === selected.day) + direction + blogData.length) % blogData.length;
+    openStory(blogData[nextIndex]);
+  };
+
   return (
-    <section id="blog" className="section-shell content-section">
-      <SectionHeading kicker="Journal" title="Educational tour stories and reflections." description="A visual record of industry exposure, institutions, technology, culture, and the people and places that shaped the journey." />
-      <div className="blog-grid">
-        {blogPosts.map((post, index) => (
-          <Reveal className={`blog-card ${index === 0 ? 'blog-card--featured' : ''}`} delay={(index % 3) * 70} key={post.id}>
-            <button onClick={() => setSelected(post)} aria-label={`Read ${post.title}`}>
-              <img src={post.image} alt="" loading="lazy" />
+    <section id="blog" className="section-shell content-section blog-section">
+      <SectionHeading kicker="Journal" title="Every tour day, every story, every photo — restored." description="The complete educational-tour journal is preserved from Day 1 through Day 9, including the original detailed reflections, cover images, and six-photo galleries." />
+
+      <div className="journal-overview glass-card">
+        <div><span className="panel-label">Complete tour archive</span><h3>9 day-by-day stories</h3><p>Navigate chronologically or open any day to read the full reflection and browse its original sub-photos.</p></div>
+        <div className="journal-quick-nav" aria-label="Journal day navigation">
+          {blogData.map((post) => <button key={post.day} onClick={() => openStory(post)}>Day {post.day}</button>)}
+        </div>
+      </div>
+
+      <div className="blog-grid blog-grid--complete">
+        {blogData.map((post, index) => (
+          <Reveal className={`blog-card ${index === 0 ? 'blog-card--featured' : ''}`} delay={(index % 3) * 70} key={post.day}>
+            <button onClick={() => openStory(post)} aria-label={`Read Day ${post.day}: ${post.title}`}>
+              <img src={post.coverImage} alt={`Day ${post.day}: ${post.title}`} loading="lazy" />
               <div className="blog-overlay" />
-              <div className="blog-content"><span>{post.label}</span><h3>{post.title}</h3><p>{post.excerpt}</p><b>Read reflection ↗</b></div>
+              <div className="blog-day-number">{String(post.day).padStart(2, '0')}</div>
+              <div className="blog-content"><span>{post.sheesh || `Day ${post.day}`}</span><h3>{post.title}</h3><p>{post.summary}</p><b>Read full story · {post.images.length} photos ↗</b></div>
             </button>
           </Reveal>
         ))}
       </div>
+
       {selected && (
         <Modal onClose={() => setSelected(null)} wide>
-          <img className="modal-hero-image" src={selected.image} alt="" />
-          <span className="kicker"><i />{selected.label}</span>
-          <h2>{selected.title}</h2>
-          <p className="modal-copy">{selected.excerpt} This journal entry preserves the experience as part of a broader journey in learning, professional exposure, and personal growth.</p>
+          <article className="journal-modal">
+            <div className="journal-modal__media">
+              <img src={focusImage || selected.coverImage} alt={`${selected.title} selected view`} />
+              <div className="journal-photo-count">Day {selected.day} · {selected.images.length} original photos</div>
+            </div>
+            <div className="journal-modal__content">
+              <div className="journal-modal__eyebrow"><span>EDUCATIONAL TOUR JOURNAL</span><b>DAY {String(selected.day).padStart(2, '0')} / {String(blogData.length).padStart(2, '0')}</b></div>
+              <h2>{selected.title}</h2>
+              <p className="journal-summary">{selected.summary}</p>
+              <p className="journal-story">{selected.content}</p>
+              <div className="journal-gallery-heading"><div><span>Original gallery</span><h3>Moments from Day {selected.day}</h3></div><small>Select any image to enlarge it above.</small></div>
+              <div className="journal-gallery">
+                {selected.images.map((image, index) => (
+                  <button className={focusImage === image.src ? 'active' : ''} onClick={() => setFocusImage(image.src)} key={`${selected.day}-${image.src}`}>
+                    <img src={image.src} alt={image.alt || `Day ${selected.day} photo ${index + 1}`} loading="lazy" />
+                    <span>{String(index + 1).padStart(2, '0')}</span>
+                  </button>
+                ))}
+              </div>
+              <div className="journal-day-strip">
+                {blogData.map((post) => <button className={post.day === selected.day ? 'active' : ''} onClick={() => openStory(post)} key={post.day}>{post.day}</button>)}
+              </div>
+              <div className="journal-navigation">
+                <button onClick={() => moveStory(-1)}>← Previous day</button>
+                <span>Navigate Day 1 through Day {blogData.length}</span>
+                <button onClick={() => moveStory(1)}>Next day →</button>
+              </div>
+            </div>
+          </article>
         </Modal>
       )}
     </section>
@@ -331,17 +380,47 @@ function ProjectLink({ project, kind }) {
 }
 
 function Projects() {
+  const [filter, setFilter] = useState('All');
+  const [selected, setSelected] = useState(null);
+  const types = ['All', ...new Set(projects.map((project) => project.type))];
+  const visible = filter === 'All' ? projects : projects.filter((project) => project.type === filter);
+  const activeDemos = projects.filter((project) => !project.live.startsWith('/')).length;
+  const technologies = Object.entries(projects.reduce((all, project) => {
+    project.technologies.forEach((technology) => { all[technology] = (all[technology] || 0) + 1; });
+    return all;
+  }, {})).sort((a, b) => b[1] - a[1]);
+  const maxTechnology = technologies[0]?.[1] || 1;
+  const institutional = projects.filter((project) => /TRAC|WMSU|CCS/i.test(project.title)).length;
+
   return (
     <section id="projects" className="section-shell content-section projects-section">
-      <SectionHeading kicker="Selected work" title="Systems designed around real people and processes." description="All projects from the original portfolio are retained, with the latest TRAC system added and repository access handled through a dedicated private-project screen." />
-      <div className="projects-grid">
-        {projects.map((project, index) => (
-          <Reveal className={`project-card ${index < 2 ? 'project-card--wide' : ''}`} delay={(index % 3) * 70} key={project.id}>
-            <div className="project-media"><img src={project.image} alt={`${project.title} interface`} loading="lazy" /><span>{project.type}</span></div>
-            <div className="project-body"><div className="project-count">{String(index + 1).padStart(2, '0')}</div><h3>{project.title}</h3><p>{project.description}</p><div className="tech-list">{project.technologies.map((tech) => <span key={tech}>{tech}</span>)}</div><div className="project-actions"><ProjectLink project={project} kind="live" /><ProjectLink project={project} kind="repo" /></div></div>
+      <SectionHeading kicker="Selected work" title="A complete, organized systems portfolio." description="Every original project is retained. Interfaces now share a consistent landscape presentation, while analytics summarize scope, technologies, deployment status, and institutional impact." />
+
+      <div className="project-dashboard">
+        <div className="project-metrics">
+          <div className="project-metric project-metric--accent"><span>Total projects</span><strong><CountUp value={projects.length} /></strong><small>Web, mobile, data, and institutional systems</small></div>
+          <div className="project-metric"><span>Public live demos</span><strong><CountUp value={activeDemos} /></strong><small>Currently linked deployments</small></div>
+          <div className="project-metric"><span>Institutional systems</span><strong><CountUp value={institutional} /></strong><small>Built around real campus workflows</small></div>
+          <div className="project-metric"><span>Technology entries</span><strong><CountUp value={new Set(projects.flatMap((project) => project.technologies)).size} /></strong><small>Across the complete portfolio</small></div>
+        </div>
+        <div className="project-analytics-grid">
+          <div className="glass-card project-chart-panel"><div className="panel-heading"><div><span>Technology analytics</span><h3>Most-used tools</h3></div><b>{technologies.length} technologies</b></div><div className="project-tech-bars">{technologies.slice(0, 8).map(([name, count]) => <div key={name}><span>{name}</span><i><b style={{ width: `${(count / maxTechnology) * 100}%` }} /></i><strong>{count}</strong></div>)}</div></div>
+          <div className="glass-card project-scope-panel"><span className="panel-label">Portfolio composition</span><h3>Real systems, not template exercises.</h3><p>The collection includes payment, healthcare scheduling, food commerce, lost-and-found services, campus navigation, productivity, API discovery, appointments, and QR-verifiable event certification.</p><div>{types.filter((type) => type !== 'All').map((type) => <span key={type}>{type}</span>)}</div></div>
+        </div>
+      </div>
+
+      <div className="project-toolbar"><div><span>{visible.length}</span> projects shown</div><div className="filter-chips">{types.map((type) => <button className={filter === type ? 'active' : ''} onClick={() => setFilter(type)} key={type}>{type}</button>)}</div></div>
+
+      <div className="projects-grid projects-grid--uniform">
+        {visible.map((project, index) => (
+          <Reveal className="project-card project-card--uniform" delay={(index % 3) * 70} key={project.id}>
+            <div className="project-media project-media--landscape"><img src={project.image} alt={`${project.title} interface`} loading="lazy" /><span>{project.type}</span><div className="project-image-index">{String(projects.findIndex((item) => item.id === project.id) + 1).padStart(2, '0')}</div></div>
+            <div className="project-body"><div className="project-count">PROJECT / {String(projects.findIndex((item) => item.id === project.id) + 1).padStart(2, '0')}</div><h3>{project.title}</h3><p>{project.description}</p><div className="tech-list">{project.technologies.map((tech) => <span key={tech}>{tech}</span>)}</div><div className="project-actions"><button className="project-link project-details-button" onClick={() => setSelected(project)}>Project details <span>↗</span></button><ProjectLink project={project} kind="live" /><ProjectLink project={project} kind="repo" /></div></div>
           </Reveal>
         ))}
       </div>
+
+      {selected && <Modal onClose={() => setSelected(null)} wide><div className="project-detail"><div className="project-detail__image"><img src={selected.image} alt={`${selected.title} interface preview`} /><span>{selected.type}</span></div><div className="project-detail__content"><span className="kicker"><i />Portfolio system</span><h2>{selected.title}</h2><p>{selected.description}</p><div className="project-detail__facts"><div><span>Role</span><b>Full-stack / system development</b></div><div><span>Repository</span><b>Private source access</b></div><div><span>Interface</span><b>Responsive web or mobile experience</b></div><div><span>Focus</span><b>Real workflow and user needs</b></div></div><h3>Core technology</h3><div className="tech-list">{selected.technologies.map((technology) => <span key={technology}>{technology}</span>)}</div><div className="project-actions"><ProjectLink project={selected} kind="live" /><ProjectLink project={selected} kind="repo" /></div></div></div></Modal>}
     </section>
   );
 }
@@ -365,12 +444,31 @@ function Modal({ children, onClose, wide = false }) {
 
 function CredentialDashboard({ onView }) {
   const totalHours = learningPrograms.reduce((sum, item) => sum + item.hours, 0);
+  const proofCount = learningPrograms.reduce((sum, item) => sum + item.images.length, 0);
+  const technicalHours = learningPrograms.filter((item) => item.ldType === 'Technical').reduce((sum, item) => sum + item.hours, 0);
+  const sponsors = new Set(learningPrograms.map((item) => item.sponsor)).size;
+  const totalCredentials = proofCount + simplilearnCertificates.length;
   const categories = useMemo(() => {
     const counts = {};
     learningPrograms.forEach((item) => { counts[item.eventType] = (counts[item.eventType] || 0) + 1; });
     return Object.entries(counts).sort((a, b) => b[1] - a[1]);
   }, []);
+  const classifications = useMemo(() => {
+    const totals = {};
+    learningPrograms.forEach((item) => { totals[item.ldType] = (totals[item.ldType] || 0) + item.hours; });
+    return Object.entries(totals).sort((a, b) => b[1] - a[1]);
+  }, []);
+  const monthlyHours = useMemo(() => {
+    const totals = {};
+    learningPrograms.forEach((item) => {
+      const [, month, year] = item.from.split(' ');
+      const key = `${month} ${year}`;
+      totals[key] = (totals[key] || 0) + item.hours;
+    });
+    return Object.entries(totals);
+  }, []);
   const max = Math.max(...categories.map(([, count]) => count));
+  const monthMax = Math.max(...monthlyHours.map(([, hours]) => hours));
   const [filter, setFilter] = useState('All');
   const [query, setQuery] = useState('');
   const types = ['All', ...new Set(learningPrograms.map((item) => item.eventType))];
@@ -378,23 +476,41 @@ function CredentialDashboard({ onView }) {
 
   return (
     <div className="dashboard-layout">
-      <div className="dashboard-stats">
-        <div className="metric metric--accent"><span>Programs attended</span><strong><CountUp value={learningPrograms.length} /></strong><small>July 2025 — March 2026</small></div>
-        <div className="metric"><span>Total L&amp;D hours</span><strong><CountUp value={totalHours} suffix="h" /></strong><small>Verified professional development</small></div>
-        <div className="metric"><span>Training programs</span><strong><CountUp value={learningPrograms.filter((x) => x.eventType === 'Training').length} /></strong><small>Supervisory + research ethics</small></div>
-        <div className="metric"><span>Seminars attended</span><strong><CountUp value={learningPrograms.filter((x) => x.eventType === 'Seminar').length} /></strong><small>Gender and development</small></div>
+      <div className="dashboard-stats dashboard-stats--extended">
+        <div className="metric metric--accent"><span>Total credentials</span><strong><CountUp value={totalCredentials} /></strong><small>{proofCount} uploaded proofs + {simplilearnCertificates.length} e-certificates</small></div>
+        <div className="metric"><span>L&amp;D programs</span><strong><CountUp value={learningPrograms.length} /></strong><small>July 2025 — March 2026</small></div>
+        <div className="metric"><span>Total L&amp;D hours</span><strong><CountUp value={totalHours} suffix="h" /></strong><small>{Math.round(totalHours / learningPrograms.length)} average hours per program</small></div>
+        <div className="metric"><span>Uploaded proofs</span><strong><CountUp value={proofCount} /></strong><small>Certificates of appearance and participation</small></div>
+        <div className="metric"><span>Technical hours</span><strong><CountUp value={technicalHours} suffix="h" /></strong><small>Primary professional-development classification</small></div>
+        <div className="metric"><span>Event categories</span><strong><CountUp value={categories.length} /></strong><small>Conventions, summits, training, forums, and more</small></div>
+        <div className="metric"><span>Sponsoring bodies</span><strong><CountUp value={sponsors} /></strong><small>Institutional and professional partners</small></div>
+        <div className="metric"><span>Active memberships</span><strong><CountUp value={memberships.length} /></strong><small>CODEC Region IX and PHILARM</small></div>
       </div>
-      <div className="dashboard-panels">
+
+      <div className="credential-insight-strip">
+        <div><span>Most frequent category</span><strong>{categories[0]?.[0]}</strong><small>{categories[0]?.[1]} recorded programs</small></div>
+        <div><span>Longest single programs</span><strong>40 hours</strong><small>MASTS Games and Supervisory Development</small></div>
+        <div><span>Learning coverage</span><strong>9 months</strong><small>Continuous development across 2025–2026</small></div>
+        <div><span>Credential mix</span><strong>{proofCount} + {simplilearnCertificates.length}</strong><small>Formal proofs and digital learning</small></div>
+      </div>
+
+      <div className="dashboard-panels dashboard-panels--triple">
         <div className="glass-card chart-panel">
-          <div className="panel-heading"><div><span>Attendance mix</span><h3>Program categories</h3></div><b>16 records</b></div>
+          <div className="panel-heading"><div><span>Attendance mix</span><h3>Program categories</h3></div><b>{learningPrograms.length} records</b></div>
           <div className="bar-chart">{categories.map(([name, count]) => <div className="bar-row" key={name}><span>{name}</span><div><i style={{ width: `${(count / max) * 100}%` }} /></div><b>{count}</b></div>)}</div>
         </div>
-        <div className="glass-card split-panel">
-          <div className="donut" style={{ '--percent': `${(learningPrograms.filter((x) => x.ldType === 'Technical').length / learningPrograms.length) * 100}%` }}><div><b>{learningPrograms.filter((x) => x.ldType === 'Technical').length}</b><span>Technical</span></div></div>
-          <div><span className="panel-label">L&amp;D classification</span><h3>Strong technical-development focus</h3><p>The portfolio also includes managerial, supervisory, and sports-and-leadership development.</p></div>
+        <div className="glass-card chart-panel">
+          <div className="panel-heading"><div><span>Timeline analytics</span><h3>Hours by month</h3></div><b>{totalHours} total</b></div>
+          <div className="monthly-chart">{monthlyHours.map(([month, hours]) => <div key={month}><i><b style={{ height: `${Math.max(12, (hours / monthMax) * 100)}%` }} /></i><strong>{hours}h</strong><span>{month}</span></div>)}</div>
+        </div>
+        <div className="glass-card classification-panel">
+          <span className="panel-label">Classification hours</span><h3>Professional-development balance</h3>
+          <div className="classification-list">{classifications.map(([name, hours]) => <div key={name}><div><span>{name}</span><b>{hours} hours</b></div><i><b style={{ width: `${(hours / totalHours) * 100}%` }} /></i></div>)}</div>
         </div>
       </div>
+
       <div className="records-toolbar"><div className="filter-chips">{types.map((type) => <button className={filter === type ? 'active' : ''} onClick={() => setFilter(type)} key={type}>{type}</button>)}</div><input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search title or sponsor…" aria-label="Search learning programs" /></div>
+      <div className="records-summary"><span>Showing <b>{visible.length}</b> of {learningPrograms.length} programs</span><span><b>{visible.reduce((sum, item) => sum + item.hours, 0)}</b> filtered hours</span></div>
       <div className="records-list">
         {visible.map((item, index) => (
           <Reveal className="record-card" delay={(index % 4) * 45} key={item.id}>
@@ -410,8 +526,12 @@ function CredentialDashboard({ onView }) {
 }
 
 function CertificateGallery({ onView }) {
+  const [filter, setFilter] = useState('All');
+  const [query, setQuery] = useState('');
   const gallery = learningPrograms.flatMap((program) => program.images.map((image, index) => ({ program, image, index })));
-  return <div className="certificate-gallery">{gallery.map(({ program, image, index }, i) => <Reveal className="certificate-image-card" delay={(i % 4) * 50} key={`${program.id}-${image}`}><button onClick={() => onView(program, index)}><div className="certificate-frame"><img src={image} alt={`${program.shortTitle} certificate`} loading="lazy" /></div><div><span>{program.eventType}</span><h3>{program.shortTitle}</h3><p>{program.from} · {program.hours} hours</p></div></button></Reveal>)}</div>;
+  const types = ['All', ...new Set(gallery.map(({ program }) => program.eventType))];
+  const visible = gallery.filter(({ program }) => (filter === 'All' || program.eventType === filter) && `${program.shortTitle} ${program.sponsor}`.toLowerCase().includes(query.toLowerCase()));
+  return <div className="certificate-gallery-wrap"><div className="certificate-gallery-hero"><div><span>Verified visual archive</span><h3>{gallery.length} uploaded credential proofs</h3><p>Certificates of appearance, participation, completion, coaching, conferences, conventions, summits, training, workshops, and institutional development.</p></div><strong><CountUp value={gallery.length} /><small>IMAGES</small></strong></div><div className="certificate-gallery-tools"><div className="filter-chips">{types.map((type) => <button className={filter === type ? 'active' : ''} onClick={() => setFilter(type)} key={type}>{type}</button>)}</div><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search certificates…" /></div><div className="certificate-gallery">{visible.map(({ program, image, index }, i) => <Reveal className="certificate-image-card" delay={(i % 4) * 50} key={`${program.id}-${image}`}><button onClick={() => onView(program, index)}><div className="certificate-frame"><img src={image} alt={`${program.shortTitle} certificate`} loading="lazy" /><span className="certificate-proof-number">{String(i + 1).padStart(2, '0')}</span></div><div><span>{program.eventType} · {program.ldType}</span><h3>{program.shortTitle}</h3><p>{program.from} · {program.hours} hours</p><small>{program.sponsor}</small></div></button></Reveal>)}</div>{!visible.length && <div className="empty-state">No certificate matches the selected filter.</div>}</div>;
 }
 
 function Simplilearn() {
@@ -469,7 +589,7 @@ function Contact() {
   return (
     <section id="contact" className="section-shell content-section contact-section">
       <div className="contact-grid">
-        <Reveal className="contact-copy"><span className="kicker"><i />Contact</span><h2>Let’s build something useful.</h2><p>For development work, institutional systems, research collaboration, speaking, training, or professional opportunities, send a message and your email application will open with everything prepared.</p><div className="contact-list"><a href="mailto:ameeffyadjarail@gmail.com"><span>EMAIL</span><b>ameeffyadjarail@gmail.com</b></a><a href="tel:+639285155692"><span>PHONE</span><b>+63 928 515 5692</b></a><div><span>BASE</span><b>Tawi-Tawi, Philippines</b></div></div><div className="social-row"><a href="https://www.facebook.com/Ameeffy" target="_blank" rel="noreferrer">Facebook ↗</a><a href="https://www.linkedin.com/in/ameeffy-adjarail-889477363/" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="https://github.com/Ameeffy" target="_blank" rel="noreferrer">GitHub ↗</a></div></Reveal>
+        <Reveal className="contact-copy"><span className="kicker"><i />Contact</span><h2>Let’s build something useful.</h2><p>For development work, institutional systems, research collaboration, speaking, training, or professional opportunities, send a message and your email application will open with everything prepared.</p><div className="contact-list"><a href="mailto:ameeffyadjarail@gmail.com"><span>EMAIL</span><b>ameeffyadjarail@gmail.com</b></a><a href="tel:+639285155692"><span>PHONE</span><b>+63 928 515 5692</b></a><div><span>BASE</span><b>Tawi-Tawi, Philippines</b></div></div><div className="social-row"><a href="https://www.facebook.com/Ameeffy" target="_blank" rel="noreferrer">Facebook ↗</a><a href="https://www.linkedin.com/in/ameeffy-adjarail-889477363/" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="https://github.com/Ameeffy" target="_blank" rel="noreferrer">GitHub ↗</a></div><div className="research-profile-panel"><div className="research-profile-heading"><span>Research identity</span><h3>Academic profiles and identifiers</h3></div><div className="research-profile-grid">{researchProfiles.map((profile) => profile.href ? <a href={profile.href} target="_blank" rel="noreferrer" key={profile.name}><span>{profile.name}</span><b>{profile.handle}</b><small>{profile.status}</small><i>↗</i></a> : <div className="profile-coming-soon" key={profile.name}><span>{profile.name}</span><b>{profile.handle}</b><small>{profile.status}</small><i>SOON</i></div>)}</div></div></Reveal>
         <Reveal className="glass-card contact-form-card" delay={100}><form onSubmit={submit}><div className="form-row"><label><span>Name</span><input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Your full name" /></label><label><span>Email</span><input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="you@example.com" /></label></div><label><span>Subject</span><input value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })} placeholder="Project or collaboration" /></label><label><span>Message</span><textarea value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} placeholder="Tell me what you have in mind…" rows="7" /></label>{error && <p className="form-error">{error}</p>}<button className="button button--primary" type="submit">Prepare email <span>↗</span></button><small>This form does not pretend to send a message. It opens your email application with the message prepared.</small></form></Reveal>
       </div>
     </section>

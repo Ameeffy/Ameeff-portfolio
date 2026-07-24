@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Blog Images</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .image-card {
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .image-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .image-caption {
+            padding: 10px;
+            text-align: center;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Blog Fallback Images Test</h1>
+    
+    <div class="image-container">
+        <div class="image-card">
+            <img src="/Main-img/Day 1.jpg" alt="Day 1">
+            <div class="image-caption">Day 1</div>
+        </div>
+        <div class="image-card">
+            <img src="/Main-img/Day 2.jpg" alt="Day 2">
+            <div class="image-caption">Day 2</div>
+        </div>
+        <div class="image-card">
+            <img src="/Main-img/Day 3.jpg" alt="Day 3">
+            <div class="image-caption">Day 3</div>
+        </div>
+        <div class="image-card">
+            <img src="/Main-img/Day 4.jpg" alt="Day 4">
+            <div class="image-caption">Day 4</div>
+        </div>
+        <div class="image-card">
+            <img src="/Main-img/Day 5.jpg" alt="Day 5">
+            <div class="image-caption">Day 5</div>
+        </div>
+        <div class="image-card">
+            <img src="/Main-img/Day 6.jpg" alt="Day 6">
+            <div class="image-caption">Day 6</div>
+        </div>
+        <div class="image-card">
+            <img src="/Main-img/Day 7.jpg" alt="Day 7">
+            <div class="image-caption">Day 7</div>
+        </div>
+        <div class="image-card">
+            <img src="/Main-img/Day 8.jpg" alt="Day 8">
+            <div class="image-caption">Day 8</div>
+        </div>
+        <div class="image-card">
+            <img src="/Main-img/Day 9.jpg" alt="Day 9">
+            <div class="image-caption">Day 9</div>
+        </div>
+    </div>
+
+    <script>
+        // Force reload images by adding a random timestamp
+        document.querySelectorAll('img').forEach(img => {
+            const src = img.src;
+            img.src = src + '?t=' + Date.now();
+        });
+    </script>
+</body>
+</html> 

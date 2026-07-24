@@ -297,3 +297,24 @@ export const blogPosts = [
   ['Paws & Places', 'A lighthearted collection of the cats encountered across Metro Manila and Baguio during the journey.', '/assets/blog/day-8.webp'],
   ['Joyful Return', 'Family time, city walks, and meaningful moments after the educational tour.', '/assets/blog/day-9.webp'],
 ].map(([title, excerpt, image], index) => ({ id: index + 1, title, excerpt, image, label: `Journal ${String(index + 1).padStart(2, '0')}` }));
+
+export const researchProfiles = [
+  {
+    name: 'ORCID',
+    handle: '0009-0006-6674-7723',
+    status: 'Active persistent researcher identifier',
+    href: 'https://orcid.org/0009-0006-6674-7723',
+  },
+  {
+    name: 'ResearchGate',
+    handle: 'Profile to be added',
+    status: 'Prepared for future publications and research networking',
+    href: '',
+  },
+  {
+    name: 'Google Scholar',
+    handle: 'Profile to be added',
+    status: 'Prepared for future citation and publication indexing',
+    href: '',
+  },
+];

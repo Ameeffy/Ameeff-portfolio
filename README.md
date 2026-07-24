@@ -1,51 +1,44 @@
-# Ar-Ameeff M. Adjarail — Portfolio Redesign
+# Ameeffy Portfolio — Preserved Content Advanced Edition
 
-A complete React + Vite portfolio rebuilt with a red-and-white visual identity, full light and dark modes, responsive layouts, rich animation, an interactive L&D dashboard, certificate gallery, professional memberships, projects, education, skills, blog, and a real email handoff.
+A responsive React + Vite portfolio for **Ar-Ameeff M. Adjarail**.
 
-## Included
+This edition preserves the existing project, styling system, image assets, certificates, memberships, and original educational-tour media while adding an advanced presentation layer.
 
-- Accurate full-page light and dark themes saved in local storage
-- Animated hero with pointer-based 3D portrait movement
-- Glassmorphism, bento layouts, reveal animations, floating elements, and scroll progress
-- Fully responsive desktop, tablet, and mobile navigation
-- 10 featured projects from the original portfolio and current TRAC work
-- Dedicated private-repository page for protected GitHub source code
-- 16 L&D programs with 296 total hours and event-type classifications
-- 19 uploaded certificate/attendance images
-- 28 “Simpli learn” e-certificates with verification links
-- 2 professional membership records with uploaded proof
-- Search and filters for L&D records
-- Dashboard metrics and visual category analytics
-- New formal portrait
-- Contact form that opens a prepared email instead of pretending to send
-- Reduced-motion accessibility support
-- Netlify SPA redirect configuration
-- Optimized public assets: approximately 3.8 MB instead of the previous project’s roughly 70 MB
+## Main enhancements
 
-## Run locally
+- Complete Day 1–Day 9 educational-tour journal
+- Original detailed reflections and all six sub-photos per day
+- Previous/next day navigation and direct Day 1–Day 9 controls
+- Uniform 16:9 landscape project presentation
+- Project filters, detail viewer, and technology analytics
+- Expanded L&D dashboard with 16 programs and 296 hours
+- 19 uploaded certificate proofs and 28 Simpli learn e-certificates
+- Certificate search, event filters, and full-screen viewer
+- ORCID researcher identifier
+- Future-ready ResearchGate and Google Scholar profile cards
+- Red-and-white visual language with complete light and dark themes
+- Responsive navigation, glassmorphism, scroll reveals, counters, hover effects, and reduced-motion support
+- Netlify single-page routing
+
+## Development
 
 ```bash
-npm install
 npm run dev
 ```
 
-Open the address shown by Vite, normally `http://localhost:5173`.
+Use `npm install` only when `node_modules` does not exist or when dependencies in `package.json` have changed.
 
-## Production test
+## Production
 
 ```bash
 npm run build
 npm run preview
 ```
 
-## Netlify settings
-
-The included `netlify.toml` already declares:
+## Deployment
 
 - Build command: `npm run build`
 - Publish directory: `dist`
-- SPA redirect to `index.html`
+- Production branch: `main`
 
-## Security
-
-Never commit `.env` files, passwords, API keys, access tokens, app passwords, or database credentials. The `.gitignore` excludes environment files.
+See `GITHUB-UPDATE-NO-NPM.txt` for the safe update workflow that merges this version into an existing local Git repository without deleting its `.git` folder or existing files.
