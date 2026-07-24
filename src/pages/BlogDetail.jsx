@@ -1,231 +1,80 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { 
-  Box, 
-  Container, 
-  Typography, 
-  Grid, 
-  Divider, 
-  Button,
-  IconButton
-} from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-
-import '../assets/blog-detail.css';
-
-
+import { Link, useParams } from 'react-router-dom';
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
+import CodeRoundedIcon from '@mui/icons-material/CodeRounded';
 import { blogData } from '../data/blogData';
 
-const BlogDetail = () => {
+export default function BlogDetail() {
   const { id } = useParams();
-  const [blog, setBlog] = useState(null);
-  const [nextBlog, setNextBlog] = useState(null);
-  const [prevBlog, setPrevBlog] = useState(null);
-  
-  useEffect(() => {
-    const blogId = parseInt(id);
-    const currentBlog = blogData.find(blog => blog.day === blogId);
-    
-    if (currentBlog) {
-      setBlog(currentBlog);
-      
+  const currentIndex = blogData.findIndex((post) => post.day === Number(id));
+  const blog = blogData[currentIndex];
+  const previous = currentIndex > 0 ? blogData[currentIndex - 1] : null;
+  const next = currentIndex >= 0 && currentIndex < blogData.length - 1 ? blogData[currentIndex + 1] : null;
 
-      const nextBlogPost = blogData.find(blog => blog.day === blogId + 1);
-      const prevBlogPost = blogData.find(blog => blog.day === blogId - 1);
-      
-      setNextBlog(nextBlogPost || null);
-      setPrevBlog(prevBlogPost || null);
-      
-
-      window.scrollTo(0, 0);
-    }
-  }, [id]);
-  
   if (!blog) {
     return (
-      <>
-        
-        <Box className="blog-detail-loading">
-          <Container>
-            <Typography variant="h4">Loading...</Typography>
-          </Container>
-        </Box>
-      </>
+      <main className="empty-state">
+        <div className="empty-state-card glass-card">
+          <h1>Story not found</h1>
+          <p>The journal entry you opened is unavailable.</p>
+          <Link className="button button--primary" to="/">Return home</Link>
+        </div>
+      </main>
     );
   }
-  
+
   return (
-    <>
-      
-      <Box className="blog-detail-container">
+    <main className="blog-detail-page">
+      <div className="blog-detail-nav-shell">
+        <nav className="blog-detail-nav">
+          <Link to="/"><ArrowBackRoundedIcon /> Back to portfolio</Link>
+          <Link to="/" className="brand" aria-label="Portfolio home">
+            <span className="brand-mark"><CodeRoundedIcon /></span>
+          </Link>
+        </nav>
+      </div>
 
-        <Box className="blog-detail-header">
-          <Container>
-            <Box className="blog-detail-nav">
-              <Button 
-                component={Link} 
-                to="/#blog" 
-                className="blog-back-button"
-                startIcon={<ArrowBackIcon />}
-              >
-                Home
-              </Button>
-            </Box>
-            
-            <Box className="blog-detail-title-container">
-              <Typography variant="overline" className="blog-detail-day">
-                {blog.sheesh}
-              </Typography>
-              <Typography variant="h1" className="blog-detail-title">
-                {blog.title}
-              </Typography>
-              <Typography variant="subtitle1" className="blog-detail-title">
-                {blog.summary}
-              </Typography>
-            </Box>
-          </Container>
-        </Box>
-        
+      <header className="blog-detail-hero blog-detail-shell">
+        <span className="section-eyebrow">Educational tour · Day {String(blog.day).padStart(2, '0')}</span>
+        <h1>{blog.title}</h1>
+        <p>{blog.summary}</p>
+      </header>
 
-        <Box className="blog-detail-hero-container">
-          <Container>
-            <Box className="blog-detail-hero-image-container">
-              <Box
-                component="img"
-                src={blog.coverImage}
-                alt={blog.title}
-                className="blog-detail-hero-image"
-              />
-            </Box>
-          </Container>
-        </Box>
-        
+      <div className="blog-detail-shell">
+        <div className="blog-detail-cover">
+          <img src={blog.coverImage} alt={blog.title} />
+        </div>
 
-        <Box className="blog-detail-content">
-          <Container>
-            <Grid container spacing={4}>
-              <Grid item xs={12} md={8}>
-                <Box className="blog-detail-article">
-                  <Typography variant="body1" className="blog-detail-text">
-                    {blog.content}
-                  </Typography>
-                  
-                
-                  <br />
-                  <br />
-                  <Typography variant="h4" className="blog-detail-subheading">
-                    Photo Gallery
-                  </Typography>
-                  
-                  <Box className="blog-detail-photo-grid">
-                    {blog.images.map((image, index) => (
-                      <Box key={index} className="blog-detail-gallery-item">
-                        <Box
-                          component="img"
-                          src={image.src}
-                          alt={image.alt}
-                          className="blog-detail-gallery-image"
-                        />
-                        
-                      </Box>
-                    ))}
-                  </Box>
-                </Box>
-                
-              
-                <Box className="blog-detail-navigation">
-                  <Divider className="blog-detail-divider" />
-                  <Grid container spacing={2}>
-                    <Grid item xs={6}>
-                      {prevBlog && (
-                        <Button
-                          component={Link}
-                          to={`/blog/${prevBlog.day}`}
-                          className="blog-nav-button prev"
-                          startIcon={<ChevronLeftIcon />}
-                        >
-                          <Box className="blog-nav-content">
-                            <Typography variant="caption" className="blog-nav-label">
-                              Previous Post
-                            </Typography>
-                            <Typography variant="body2" className="blog-nav-title">
-                              {prevBlog.title}
-                            </Typography>
-                          </Box>
-                        </Button>
-                      )}
-                    </Grid>
-                    <Grid item xs={6} sx={{ textAlign: 'right' }}>
-                      {nextBlog && (
-                        <Button
-                          component={Link}
-                          to={`/blog/${nextBlog.day}`}
-                          className="blog-nav-button next"
-                          endIcon={<ChevronRightIcon />}
-                        >
-                          <Box className="blog-nav-content">
-                            <Typography variant="caption" className="blog-nav-label">
-                              Next Post
-                            </Typography>
-                            <Typography variant="body2" className="blog-nav-title">
-                              {nextBlog.title}
-                            </Typography>
-                          </Box>
-                        </Button>
-                      )}
-                    </Grid>
-                  </Grid>
-                </Box>
-              </Grid>
-              
-        
-              <Grid item xs={12} md={4}>
-                <Box className="blog-detail-sidebar">
-                  <Box className="blog-sidebar-section">
-                    <Typography variant="h6" className="blog-sidebar-heading">
-                      Navigations
-                    </Typography>
-                    <Box className="blog-sidebar-posts">
-                      {blogData
-                        .filter(post => post.day !== blog.day)
-                        .slice(0, 9)
-                        .map((post) => (
-                          <Box 
-                            key={post.day} 
-                            component={Link} 
-                            to={`/blog/${post.day}`}
-                            className="blog-sidebar-post-link"
-                          >
-                            <Box className="blog-sidebar-post">
-                              <Box
-                                component="img"
-                                src={post.coverImage}
-                                alt={post.title}
-                                className="blog-sidebar-post-image"
-                              />
-                              <Box className="blog-sidebar-post-content">
-                                <Typography variant="caption" className="blog-sidebar-post-day">
-                                  Day {post.day}
-                                </Typography>
-                                <Typography variant="body2" className="blog-sidebar-post-title">
-                                  {post.title}
-                                </Typography>
-                              </Box>
-                            </Box>
-                          </Box>
-                        ))}
-                    </Box>
-                  </Box>
-                </Box>
-              </Grid>
-            </Grid>
-          </Container>
-        </Box>
-      </Box>
-    </>
+        <div className="blog-detail-content-grid">
+          <article className="blog-article-copy">
+            <p>{blog.content}</p>
+            <h2 className="blog-gallery-heading">Photo gallery</h2>
+            <div className="blog-gallery">
+              {blog.images.map((image, index) => (
+                <figure key={`${image.src}-${index}`}>
+                  <img src={image.src} alt={image.alt || `${blog.title} photo ${index + 1}`} loading="lazy" />
+                </figure>
+              ))}
+            </div>
+
+            <div className="blog-pagination">
+              {previous ? <Link to={`/blog/${previous.day}`}>← Day {previous.day}: {previous.title}</Link> : <span />}
+              {next && <Link to={`/blog/${next.day}`}>Day {next.day}: {next.title} →</Link>}
+            </div>
+          </article>
+
+          <aside className="blog-sidebar">
+            <h3>All journal entries</h3>
+            <div className="blog-sidebar-list">
+              {blogData.map((post) => (
+                <Link key={post.day} to={`/blog/${post.day}`} className={post.day === blog.day ? 'active' : ''}>
+                  <img src={post.coverImage} alt="" loading="lazy" />
+                  <span>Day {post.day}<br />{post.title}</span>
+                </Link>
+              ))}
+            </div>
+          </aside>
+        </div>
+      </div>
+    </main>
   );
-};
-
-export default BlogDetail; 
+}
