@@ -1,129 +1,195 @@
-import { useEffect, useRef } from 'react';
-import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
-import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
-import Reveal from '../components/Reveal';
+import React, { useEffect, useRef } from 'react';
+import { Box, Typography, Button, Grid, Container } from '@mui/material';
+import { useInView } from 'react-intersection-observer';
+import '../assets/hero.css';
 
-const stack = ['React', 'Node.js', 'MySQL', 'React Native'];
-
-export default function Hero() {
-  const visualRef = useRef(null);
-
+const Hero = () => {
+  const { ref, inView } = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
+  
+  const imageRef = useRef(null);
+  
+  // Mouse move parallax effect
   useEffect(() => {
-    const visual = visualRef.current;
-    if (!visual || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
-
-    const move = (event) => {
-      const rect = visual.getBoundingClientRect();
-      const x = ((event.clientX - rect.left) / rect.width - 0.5) * 12;
-      const y = ((event.clientY - rect.top) / rect.height - 0.5) * -12;
-      visual.style.setProperty('--tilt-x', `${y}deg`);
-      visual.style.setProperty('--tilt-y', `${x}deg`);
+    const handleMouseMove = (e) => {
+      if (!imageRef.current) return;
+      
+      const { clientX, clientY } = e;
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+      
+      // Calculate distance from center as a percentage (reduced intensity)
+      const xPos = (windowWidth / 2 - clientX) / 35;
+      const yPos = (windowHeight / 2 - clientY) / 35;
+      
+      // Apply transform with hardware acceleration
+      requestAnimationFrame(() => {
+        imageRef.current.style.transform = `translate3d(${xPos}px, ${yPos}px, 0) scale(1.02)`;
+      });
     };
-
-    const reset = () => {
-      visual.style.setProperty('--tilt-x', '0deg');
-      visual.style.setProperty('--tilt-y', '0deg');
+    
+    // Smoothly reset position when mouse leaves window
+    const handleMouseLeave = () => {
+      if (!imageRef.current) return;
+      
+      imageRef.current.style.transition = 'transform 0.8s ease-out';
+      imageRef.current.style.transform = 'translate3d(0, 0, 0) scale(1.02)';
+      
+      // Return to faster transition after reset animation completes
+      setTimeout(() => {
+        if (imageRef.current) {
+          imageRef.current.style.transition = 'transform 0.05s linear';
+        }
+      }, 800);
     };
-
-    visual.addEventListener('pointermove', move);
-    visual.addEventListener('pointerleave', reset);
+    
+    window.addEventListener('mousemove', handleMouseMove);
+    document.body.addEventListener('mouseleave', handleMouseLeave);
+    
     return () => {
-      visual.removeEventListener('pointermove', move);
-      visual.removeEventListener('pointerleave', reset);
+      window.removeEventListener('mousemove', handleMouseMove);
+      document.body.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, []);
-
+  
   return (
-    <section id="home" className="hero-section section-shell">
-      <div className="hero-orb hero-orb--one" />
-      <div className="hero-orb hero-orb--two" />
-      <div className="hero-grid">
-        <div className="hero-copy">
-          <Reveal>
-            <div className="availability-pill">
-              <span className="status-dot" />
-              Available for selected projects
-            </div>
-          </Reveal>
+    <Box component="section" id="home" className="hero-section" ref={ref}>
+      <Container>
+        <Grid container spacing={6} alignItems="center">
 
-          <Reveal delay={80}>
-            <p className="hero-kicker">FULL-STACK &amp; MOBILE DEVELOPER</p>
-            <h1 className="hero-title">
-              Building digital products that feel <span>clear, fast, and human.</span>
-            </h1>
-          </Reveal>
-
-          <Reveal delay={150}>
-            <p className="hero-intro">
-              I’m <strong>Ar-Ameeff M. Adjarail</strong>, a developer and educator creating responsive web platforms,
-              mobile applications, and data-driven systems for real organizations.
-            </p>
-          </Reveal>
-
-          <Reveal delay={220} className="hero-actions">
-            <a className="button button--primary" href="#projects">
-              Explore my work <ArrowOutwardRoundedIcon />
-            </a>
-            <a className="button button--ghost" href="#contact">
-              Start a conversation
-            </a>
-          </Reveal>
-
-          <Reveal delay={280} className="hero-meta-row">
-            <div className="hero-location"><LocationOnRoundedIcon /> Philippines</div>
-            <span className="meta-divider" />
-            <div className="hero-socials">
-              <a href="https://github.com/Ameeffy" target="_blank" rel="noreferrer" aria-label="GitHub"><GitHubIcon /></a>
-              <a href="https://www.linkedin.com/in/ameeffy-adjarail-889477363/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><LinkedInIcon /></a>
-            </div>
-          </Reveal>
-        </div>
-
-        <Reveal delay={120} className="hero-visual-wrap">
-          <div ref={visualRef} className="hero-visual">
-            <div className="portrait-card">
-              <div className="portrait-topline">
-                <span>AMEEFFY / PORTFOLIO</span>
-                <AutoAwesomeRoundedIcon />
-              </div>
-              <div className="portrait-image-wrap">
-                <img src="/profile.png" alt="Ar-Ameeff M. Adjarail" className="portrait-image" />
-                <div className="portrait-glow" />
-              </div>
-              <div className="portrait-footer">
-                <div>
-                  <small>Current focus</small>
-                  <strong>Useful systems, refined UI</strong>
-                </div>
-                <span className="portrait-index">01</span>
-              </div>
-            </div>
-
-            <div className="floating-card floating-card--role">
-              <span className="floating-icon">&lt;/&gt;</span>
-              <div><small>Role</small><strong>Full-stack developer</strong></div>
-            </div>
-
-            <div className="floating-card floating-card--stack">
-              <small>Core stack</small>
-              <div className="stack-cloud">
-                {stack.map((item) => <span key={item}>{item}</span>)}
-              </div>
-            </div>
-          </div>
-        </Reveal>
-      </div>
-
-      <div className="hero-marquee" aria-hidden="true">
-        <div className="hero-marquee-track">
-          {[...stack, 'UI Engineering', 'Database Design', ...stack, 'UI Engineering', 'Database Design'].map((item, index) => (
-            <span key={`${item}-${index}`}>{item}<i>✦</i></span>
-          ))}
-        </div>
-      </div>
-    </section>
+          <Grid item xs={12} md={6}>
+            <Box className={`hero-content ${inView ? 'animated' : ''}`}>
+              <Box className="hero-subtitle">
+                <Box className="hero-line"></Box>
+                <Typography className="hero-overline">
+                  mobile and Web Developer
+                </Typography>
+              </Box>
+              
+              <Typography variant="h2" className="hero-title-secondary">
+                Hello, I'm Ar-Ameeff Adjarail
+              </Typography>
+              
+          
+              
+              <Typography className="hero-description">
+              I'm a mobile and web developer passionate about building responsive, user-friendly, and accessible apps with modern technologies.
+              </Typography>
+              
+              <Box className="hero-buttons">
+                <Button 
+                  variant="contained" 
+                  href="#contact"
+                  className="hero-button primary"
+                >
+                  Contact Me
+                </Button>
+                <Button 
+                  variant="outlined" 
+                  href="#projects"
+                  className="hero-button secondary"
+                >
+                  View Projects
+                </Button>
+              </Box>
+            </Box>
+          </Grid>
+          
+          {/* Right Column - Image */}
+          <Grid item xs={12} md={6}>
+            <Box 
+              className={`hero-image-container ${inView ? 'animated' : ''}`}
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '100%'
+              }}
+            >
+              <Box 
+                className="hero-image-frame"
+                sx={{
+                  position: 'relative',
+                  borderRadius: '24px',
+                  boxShadow: '0 20px 40px rgba(50, 69, 99, 0.2)',
+                  overflow: 'hidden',
+                  width: '340px',
+                  height: '400px',
+                  background: 'linear-gradient(135deg, #324563, rgb(180, 50, 50))',
+                  padding: '8px'
+                }}
+              >
+                <Box 
+                  className="hero-image-wrapper" 
+                  ref={imageRef}
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                    borderRadius: '18px',
+                    overflow: 'hidden',
+                    position: 'relative',
+                    background: '#fff',
+                    willChange: 'transform',
+                    backfaceVisibility: 'hidden',
+                    transformStyle: 'preserve-3d',
+                    transition: 'transform 0.05s linear', // Smoother transition
+                    transformOrigin: 'center center'
+                  }}
+                >
+                  <Box 
+                    component="img"
+                    src="/profile.png"
+                    alt="Ameef - Frontend Developer"
+                    className="hero-image"
+                    sx={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      objectPosition: 'top center',
+                      display: 'block'
+                    }}
+                    onError={(e) => {
+                      console.log('Image failed to load');
+                      e.target.onerror = null;
+                      e.target.src = '/src/assets/profile.png';
+                    }}
+                  />
+                </Box>
+                <Box 
+                  className="hero-decorations"
+                  sx={{
+                    position: 'absolute',
+                    top: '-20px',
+                    right: '-20px',
+                    width: '80px',
+                    height: '80px',
+                    borderRadius: '50%',
+                    background: 'rgba(180, 50, 50, 0.2)',
+                    filter: 'blur(30px)'
+                  }}
+                />
+                <Box 
+                  className="hero-decorations-2"
+                  sx={{
+                    position: 'absolute',
+                    bottom: '-30px',
+                    left: '-30px',
+                    width: '120px',
+                    height: '120px',
+                    borderRadius: '50%',
+                    background: 'rgba(50, 69, 99, 0.15)',
+                    filter: 'blur(40px)'
+                  }}
+                />
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
   );
-}
+};
+
+export default Hero; 

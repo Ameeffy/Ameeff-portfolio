@@ -146,3 +146,65 @@ export const blogData = [
     ]
   }
 ];
+
+
+export const galleryImages = {
+  1: [
+    "/Day 1/1.jpg",
+    "/9c4519c1-0888-471a-a3bc-6a5755558d26.jpg",
+    "/Day 1/2.jpg",
+    "/Day 1/3.jpg",
+    "/Day 1/4.jpg",
+  
+    
+  ],
+  2: [
+    "/sbecc-group.jpg",
+    "/sbecc-presentation.jpg",
+    "/vtms-monitor.jpg",
+    "/subic-view.jpg",
+    "/sbecc-hall.jpg",
+    "/subic-parking.jpg",
+    "/philippine-flag.jpg"
+  ],
+  3: [
+    "/Day 3/IMG_0408.jpg",
+    "/Day 3/IMG_0282.jpg"
+  ],
+  4: [
+    "/Day 4/IMG_7477.jpg",
+    "/Day 4/IMG_7479.jpg",
+    "/Day 4/IMG_7516.jpg"
+  ],
+  5: [
+    "/Day 5/IMG_0411.jpg",
+    "/Day 5/IMG_0606.jpg",
+    "/Day 5/IMG_7751.jpg",
+    "/Day 5/IMG_7777.jpg",
+    "/Day 5/IMG_7858.jpg",
+    "/Day 5/IMG_0411(3).jpg"
+  ],
+  6: [
+    "/Day 6/IMG_0418.jpg",
+    "/Day 6/IMG_8511.jpg",
+    "/Day 6/IMG_8780.jpg",
+    "/Day 6/IMG_8817.jpg",
+    "/Day 6/IMG_8869.jpg",
+    "/Day 6/IMG_6906.jpg"
+  ],
+  7: [
+    "/Day 7/IMG_7031.jpg",
+    "/Day 7/IMG_8895.jpg",
+    "/Day 7/IMG_8902.jpg"
+  ],
+  8: [
+    "/Day 8/IMG_9141.jpg",
+    "/Day 8/IMG_8117.jpg",
+    "/Day 8/IMG_8145.jpg"
+  ],
+  9: [
+    "/Day 9/IMG_9663.jpg",
+    "/Day 9/IMG_6447.jpg",
+    "/Day 9/IMG_9006.jpg"
+  ]
+};

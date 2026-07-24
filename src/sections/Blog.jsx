@@ -1,41 +1,157 @@
+import React, { useState } from 'react';
+import { 
+  Box, 
+  Container, 
+  Typography, 
+  Grid, 
+  Card, 
+  CardContent, 
+  CardMedia, 
+  Button,
+  Modal,
+  IconButton,
+  Divider
+} from '@mui/material';
 import { Link } from 'react-router-dom';
-import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
-import SectionHeading from '../components/SectionHeading';
-import Reveal from '../components/Reveal';
+import { useInView } from 'react-intersection-observer';
+import CloseIcon from '@mui/icons-material/Close';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import '../assets/blog.css';
 import { blogData } from '../data/blogData';
 
-export default function Blog() {
-  const featuredPosts = blogData.slice(0, 3);
+const Blog = () => {
+  const { ref, inView } = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
+
+  const [selectedBlog, setSelectedBlog] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleOpenModal = (blog) => {
+    setSelectedBlog(blog);
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
 
   return (
-    <section id="blog" className="content-section section-shell">
-      <SectionHeading
-        eyebrow="Field notes"
-        title="Stories beyond"
-        accent="the code."
-        description="A visual journal from my educational tour—technology, institutions, history, and the experiences behind the journey."
-      />
+    <Box component="section" id="blog" className="blog-section" ref={ref}>
+      <Container maxWidth="xl">
+        <Box className="blog-header">
+          <Typography variant="h2" className="blog-title">
+            Educational Tour Blogs
+          </Typography>
+          <Typography className="blog-subtitle">
+            A 7-day journey of learning and discovery through our educational tour experience
+          </Typography>
+        </Box>
 
-      <div className="journal-grid">
-        {featuredPosts.map((post, index) => (
-          <Reveal key={post.day} delay={index * 90} className={`journal-card ${index === 0 ? 'journal-card--lead' : ''}`}>
-            <Link to={`/blog/${post.day}`} className="journal-image-link" aria-label={`Read ${post.title}`}>
-              <img src={post.coverImage} alt={post.title} loading="lazy" />
-              <span className="journal-day">DAY {String(post.day).padStart(2, '0')}</span>
-            </Link>
-            <div className="journal-copy">
-              <h3>{post.title}</h3>
-              <p>{post.summary}</p>
-              <Link to={`/blog/${post.day}`} className="text-link">Read the story <ArrowForwardRoundedIcon /></Link>
+        {/* Blog Grid - Updated to match projects layout */}
+        <div className={`blog-grid ${inView ? 'animated' : ''}`}>
+          {blogData.map((blog, index) => (
+            <div 
+              key={blog.day}
+              className={`blog-item delay-${index * 200}`}
+            >
+              <Card 
+                className="blog-card"
+                elevation={0}
+              >
+                <Box className="blog-card-media-container">
+                  <CardMedia
+                    component="img"
+                    className="blog-card-media"
+                    image={blog.coverImage}
+                    alt={blog.title}
+                  />
+                  <Box className="blog-day-badge">Day {blog.day}</Box>
+                </Box>
+                <CardContent className="blog-card-content">
+                  <Typography variant="h6" className="blog-card-title">
+                    {blog.title}
+                  </Typography>
+                  <Typography className="blog-card-summary">
+                    {blog.summary}
+                  </Typography>
+                  <Button 
+                    component={Link}
+                    to={`/blog/${blog.day}`}
+                    className="blog-read-more" 
+                    endIcon={<ChevronRightIcon />}
+                  >
+                    Read More
+                  </Button>
+                </CardContent>
+              </Card>
             </div>
-          </Reveal>
-        ))}
-      </div>
+          ))}
+        </div>
+      </Container>
 
-      <Reveal className="journal-footer" delay={120}>
-        <p>Nine days of learning, travel, and professional exposure.</p>
-        <Link to="/blog/1" className="button button--ghost">Start from Day 1 <ArrowForwardRoundedIcon /></Link>
-      </Reveal>
-    </section>
+
+      <Modal
+        open={modalOpen}
+        onClose={handleCloseModal}
+        className="blog-modal"
+      >
+        <Box className="blog-modal-content">
+          {selectedBlog && (
+            <>
+              <Box className="blog-modal-header">
+                <Box>
+                  <Typography variant="overline" className="blog-modal-day">
+                    Day {selectedBlog.day}
+                  </Typography>
+                  <Typography variant="h4" className="blog-modal-title">
+                    {selectedBlog.title}
+                  </Typography>
+                </Box>
+                <IconButton 
+                  onClick={handleCloseModal}
+                  className="blog-modal-close"
+                >
+                  <CloseIcon />
+                </IconButton>
+              </Box>
+              
+              <Divider className="blog-modal-divider" />
+              
+              <Box className="blog-modal-body">
+                <Typography className="blog-modal-content-text">
+                  {selectedBlog.content}
+                </Typography>
+                
+                <Box className="blog-modal-images">
+                  <Typography variant="h6" className="blog-images-title">
+                    Photo Gallery
+                  </Typography>
+                  <Grid container spacing={3}>
+                    {selectedBlog.images.map((image, index) => (
+                      <Grid item xs={12} sm={4} key={index}>
+                        <Box className="blog-image-container">
+                          <img 
+                            src={selectedBlog.images[index].src}
+                            alt={image.alt}
+                            className="blog-detail-image"
+                          />
+                          <Typography className="blog-image-caption">
+                            {image.caption}
+                          </Typography>
+                        </Box>
+                      </Grid>
+                    ))}
+                  </Grid>
+                </Box>
+              </Box>
+            </>
+          )}
+        </Box>
+      </Modal>
+    </Box>
   );
-}
+};
+
+export default Blog; 

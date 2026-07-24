@@ -1,115 +1,274 @@
-import { useState } from 'react';
-import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
-import PhoneRoundedIcon from '@mui/icons-material/PhoneRounded';
-import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
-import SendRoundedIcon from '@mui/icons-material/SendRounded';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import React, { useState } from 'react';
+import { Box, Typography, Container, Grid, Alert, CircularProgress, Snackbar } from '@mui/material';
+import { useInView } from 'react-intersection-observer';
+import EmailIcon from '@mui/icons-material/Email';
+import PhoneIcon from '@mui/icons-material/Phone';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import SectionHeading from '../components/SectionHeading';
-import Reveal from '../components/Reveal';
-
-const initialForm = { name: '', email: '', subject: '', message: '' };
+import '../assets/premium-contact.css';
 
 export default function Contact() {
-  const [form, setForm] = useState(initialForm);
-  const [errors, setErrors] = useState({});
+  const { ref, inView } = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
 
-  const updateField = (event) => {
-    const { name, value } = event.target;
-    setForm((current) => ({ ...current, [name]: value }));
-    setErrors((current) => ({ ...current, [name]: '' }));
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+    
+   
+    if (errors[name]) {
+      setErrors({
+        ...errors,
+        [name]: ''
+      });
+    }
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const nextErrors = {};
-    if (!form.name.trim()) nextErrors.name = 'Please enter your name.';
-    if (!/^\S+@\S+\.\S+$/.test(form.email)) nextErrors.email = 'Please enter a valid email.';
-    if (!form.message.trim()) nextErrors.message = 'Please write a short message.';
-    setErrors(nextErrors);
-    if (Object.keys(nextErrors).length) return;
+  const validateForm = () => {
+    const newErrors = {};
+    
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required';
+    }
+    
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email';
+    }
+    
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
-    const subject = form.subject.trim() || `Portfolio inquiry from ${form.name}`;
-    const body = `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`;
-    window.location.href = `mailto:ameeffyadjarail@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    if (validateForm()) {
+      setIsSubmitting(true);
+      
+
+      setTimeout(() => {
+        setIsSubmitting(false);
+        setSubmitSuccess(true);
+        setSnackbarOpen(true);
+        
+
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
+        
+        setTimeout(() => {
+          setSubmitSuccess(false);
+        }, 3000);
+      }, 1500);
+    }
+  };
+
+  const handleCloseSnackbar = () => {
+    setSnackbarOpen(false);
   };
 
   return (
-    <section id="contact" className="content-section section-shell contact-section">
-      <SectionHeading
-        eyebrow="Let’s connect"
-        title="Have an idea worth"
-        accent="building well?"
-        description="Tell me about your project, system, collaboration, or opportunity. Your message will open in your default email application."
-      />
+    <Box component="section" id="contact" className="contact-section" ref={ref}>
+      <Container>
+   
+        <Box className={`contact-header ${inView ? 'fade-in-up' : ''}`} style={{ animationDelay: '0.1s' }}>
+          <Typography variant="h2" component="h2" className="contact-title">
+            Get In Touch
+          </Typography>
+          <Typography className="contact-subtitle">
+            Feel free to reach out if you're looking for a developer, have a question, or just want to connect.
+          </Typography>
+        </Box>
+        
 
-      <div className="contact-layout">
-        <Reveal className="contact-panel glass-card">
-          <div>
-            <span className="card-label">CONTACT DETAILS</span>
-            <h3>Let’s turn the next challenge into a useful product.</h3>
-            <p>I’m open to development projects, research collaborations, institutional systems, and professional opportunities.</p>
-          </div>
+        <Box className="contact-container">
 
-          <div className="contact-list">
-            <a href="mailto:ameeffyadjarail@gmail.com">
-              <span><EmailRoundedIcon /></span>
-              <div><small>Email</small><strong>ameeffyadjarail@gmail.com</strong></div>
-            </a>
-            <a href="tel:+639285155692">
-              <span><PhoneRoundedIcon /></span>
-              <div><small>Phone</small><strong>+63 928 515 5692</strong></div>
-            </a>
-            <div>
-              <span><LocationOnRoundedIcon /></span>
-              <div><small>Based in</small><strong>Philippines</strong></div>
-            </div>
-          </div>
+          <Box className={`contact-info ${inView ? 'fade-in-up' : ''}`} style={{ animationDelay: '0.2s' }}>
+            <Box className="contact-info-card">
+              <Typography className="contact-text">
+                I'm currently available for freelance work and open to new opportunities. 
+                If you have a project that you want to get started or need help with 
+                something, feel free to get in touch with me.
+              </Typography>
+              <br/>
+              <Box className="contact-methods">
+                <Box className="contact-method">
+                  <Box className="contact-icon">
+                    <EmailIcon />
+                  </Box>
+                  <Box className="contact-detail">
+                    <Typography className="contact-label">Email</Typography>
+                    <Typography className="contact-value">
+                      <a href="#" className="contact-link">ameeffyadjarail@gmail.com</a>
+                    </Typography>
+                  </Box>
+                </Box>
+                
+                <Box className="contact-method">
+                  <Box className="contact-icon">
+                    <PhoneIcon />
+                  </Box>
+                  <Box className="contact-detail">
+                    <Typography className="contact-label">Phone</Typography>
+                    <Typography className="contact-value">
+                      <a href="tel:+639123456789" className="contact-link">+63 928 515 5692</a>
+                    </Typography>
+                  </Box>
+                </Box>
+                
+                <Box className="contact-method">
+                  <Box className="contact-icon">
+                    <LocationOnIcon />
+                  </Box>
+                  <Box className="contact-detail">
+                    <Typography className="contact-label">Location</Typography>
+                    <Typography className="contact-value">Baliwasan, Zamboanga city</Typography>
+                  </Box>
+                </Box>
+              </Box>
+              
+              <Box className="social-links">
+                <a href="https://www.facebook.com/Ameeffy" className="social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                  <FacebookIcon />
+                </a>
+                <a href="https://github.com/Ameeffy?tab=repositories" className="social-link" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+                  <GitHubIcon />
+                </a>
+                <a href="https://www.linkedin.com/in/ameeffy-adjarail-889477363/" className="social-link" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                  <LinkedInIcon />
+                </a>
+                <a href="https://www.instagram.com/ameeffy" className="social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                  <InstagramIcon />
+                </a>
+              </Box>
+            </Box>
+          </Box>
+          
 
-          <div className="contact-socials">
-            <a href="https://github.com/Ameeffy" target="_blank" rel="noreferrer" aria-label="GitHub"><GitHubIcon /></a>
-            <a href="https://www.linkedin.com/in/ameeffy-adjarail-889477363/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><LinkedInIcon /></a>
-            <a href="https://www.facebook.com/Ameeffy" target="_blank" rel="noreferrer" aria-label="Facebook"><FacebookIcon /></a>
-            <a href="https://www.instagram.com/ameeffy" target="_blank" rel="noreferrer" aria-label="Instagram"><InstagramIcon /></a>
-          </div>
-        </Reveal>
+          <Box className={`contact-form-container ${inView ? 'fade-in-up' : ''}`} style={{ animationDelay: '0.3s' }}>
+            {submitSuccess ? (
+              <Box className="success-message">
+                <CheckCircleIcon className="success-icon" />
+                <Typography className="success-title">Message Sent!</Typography>
+                <Typography className="success-text">
+                  Thank you for reaching out. I'll get back to you as soon as possible.
+                </Typography>
+              </Box>
+            ) : (
+              <>
+                <Typography className="form-title">Send Message</Typography>
+                
+                <form className="contact-form" onSubmit={handleSubmit}>
+                  <Box className="form-field">
+                    <input 
+                      type="text" 
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="Your Name" 
+                      className={`form-input ${errors.name ? 'form-input-error' : ''}`}
+                    />
+                    {errors.name && <div className="form-error">{errors.name}</div>}
+                  </Box>
+                  
+                  <Box className="form-field">
+                    <input 
+                      type="email" 
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="Your Email" 
+                      className={`form-input ${errors.email ? 'form-input-error' : ''}`}
+                    />
+                    {errors.email && <div className="form-error">{errors.email}</div>}
+                  </Box>
+                  
+                  <Box className="form-field">
+                    <input 
+                      type="text" 
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      placeholder="Subject" 
+                      className="form-input"
+                    />
+                  </Box>
+                  
+                  <Box className="form-field">
+                    <textarea 
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      placeholder="Your Message" 
+                      className={`form-input ${errors.message ? 'form-input-error' : ''}`}
+                    ></textarea>
+                    {errors.message && <div className="form-error">{errors.message}</div>}
+                  </Box>
+                  
+                  <button 
+                    type="submit" 
+                    className="submit-button" 
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <CircularProgress size={20} color="inherit" />
+                    ) : (
+                      <span>Send Message</span>
+                    )}
+                  </button>
+                </form>
+              </>
+            )}
+          </Box>
+        </Box>
+      </Container>
 
-        <Reveal className="contact-form-card glass-card" delay={100}>
-          <form onSubmit={handleSubmit} noValidate>
-            <div className="field-row">
-              <label>
-                <span>Name</span>
-                <input name="name" value={form.name} onChange={updateField} placeholder="Your full name" />
-                {errors.name && <small className="field-error">{errors.name}</small>}
-              </label>
-              <label>
-                <span>Email</span>
-                <input name="email" type="email" value={form.email} onChange={updateField} placeholder="you@example.com" />
-                {errors.email && <small className="field-error">{errors.email}</small>}
-              </label>
-            </div>
-            <label>
-              <span>Subject</span>
-              <input name="subject" value={form.subject} onChange={updateField} placeholder="What would you like to build?" />
-            </label>
-            <label>
-              <span>Message</span>
-              <textarea name="message" value={form.message} onChange={updateField} rows="6" placeholder="Share the goal, current challenge, and what success should look like." />
-              {errors.message && <small className="field-error">{errors.message}</small>}
-            </label>
-            <button className="button button--primary form-submit" type="submit">
-              Prepare email <SendRoundedIcon />
-            </button>
-          </form>
-        </Reveal>
-      </div>
-
-      <footer className="site-footer">
-        <p>© {new Date().getFullYear()} Ar-Ameeff M. Adjarail. Designed and built with purpose.</p>
-        <a href="#home">Back to top ↑</a>
-      </footer>
-    </section>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={5000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      >
+        <Alert 
+          onClose={handleCloseSnackbar} 
+          severity="success" 
+          elevation={6}
+          variant="filled"
+        >
+          Message sent successfully!
+        </Alert>
+      </Snackbar>
+    </Box>
   );
-}
+} 

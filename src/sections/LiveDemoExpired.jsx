@@ -1,14 +1,32 @@
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Box, Typography, Container } from '@mui/material';
 
 export default function LiveDemoExpired() {
+  const [countdown, setCountdown] = useState(5);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCountdown(prev => prev - 1);
+    }, 1000);
+
+    const timeout = setTimeout(() => {
+      window.history.back();
+    }, 5000);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeout);
+    };
+  }, []);
+
   return (
-    <main className="empty-state">
-      <div className="empty-state-card glass-card">
-        <span className="section-eyebrow">Project status</span>
-        <h1>Live demo currently unavailable</h1>
-        <p>The original hosted demo has expired, but the project remains part of my development portfolio.</p>
-        <Link className="button button--primary" to="/#projects">Return to projects</Link>
-      </div>
-    </main>
+    <Container maxWidth="sm" sx={{ textAlign: 'center', mt: 10 }}>
+      <Typography variant="h4" gutterBottom>
+        Live demo is not available.
+      </Typography>
+      <Typography variant="body1">
+        Redirecting back in {countdown} second{countdown !== 1 && 's'}...
+      </Typography>
+    </Container>
   );
 }

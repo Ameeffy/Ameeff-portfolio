@@ -1,75 +1,95 @@
-import WorkOutlineRoundedIcon from '@mui/icons-material/WorkOutlineRounded';
-import SchoolRoundedIcon from '@mui/icons-material/SchoolRounded';
-import CodeRoundedIcon from '@mui/icons-material/CodeRounded';
-import HubRoundedIcon from '@mui/icons-material/HubRounded';
-import SectionHeading from '../components/SectionHeading';
-import Reveal from '../components/Reveal';
+import React from 'react';
+import { useInView } from 'react-intersection-observer';
+import {
+  Box,
+  Container,
+  Typography,
+  Grid,
+  Button,
+  Divider
+} from '@mui/material';
 
-const highlights = [
-  {
-    icon: <WorkOutlineRoundedIcon />,
-    value: '3+',
-    label: 'Years building digital solutions',
-  },
-  {
-    icon: <CodeRoundedIcon />,
-    value: '9+',
-    label: 'Web and mobile projects',
-  },
-  {
-    icon: <SchoolRoundedIcon />,
-    value: 'MSIT',
-    label: 'Graduate studies in progress',
-  },
-  {
-    icon: <HubRoundedIcon />,
-    value: '360°',
-    label: 'From interface to database',
-  },
-];
 
-export default function About() {
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import WorkIcon from '@mui/icons-material/Work';
+import CodeIcon from '@mui/icons-material/Code';
+import DesignServicesIcon from '@mui/icons-material/DesignServices';
+import StorageIcon from '@mui/icons-material/Storage';
+import CloudIcon from '@mui/icons-material/Cloud';
+import BrushIcon from '@mui/icons-material/Brush';
+import AndroidIcon from '@mui/icons-material/Android';
+import GetAppIcon from '@mui/icons-material/GetApp';
+
+
+import '../assets/about.css';
+
+const About = () => {
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
+  
+
   return (
-    <section id="about" className="content-section section-shell">
-      <SectionHeading
-        eyebrow="About me"
-        title="Developer by craft."
-        accent="Problem-solver by nature."
-        description="I connect design thinking, software engineering, and real institutional needs to build products people can actually use."
-      />
+    <Box id="about" className="section-about">
+      <Container>
+ 
+        <Box className="about-new-header">
+          <Typography variant="h2" className="about-new-title">
+            About <span className="text-gradient">Me</span>
+          </Typography>
+          <div className="about-new-underline"></div>
+        </Box>
 
-      <div className="about-layout">
-        <Reveal className="about-story glass-card">
-          <span className="card-label">MY JOURNEY</span>
-          <h3>Technology with purpose, not decoration.</h3>
-          <p>
-            I serve as an Executive Secretary at Tawi-Tawi Regional Agricultural College and teach in its BSIT program while continuing my Master of Science in Information Technology studies at Bulacan State University.
-          </p>
-          <p>
-            My development work spans responsive web applications, mobile experiences, database systems, appointment platforms, payment solutions, and internal tools. I enjoy translating complex workflows into interfaces that feel simple and dependable.
-          </p>
-          <blockquote>
-            “Indeed, with hardship comes ease.”
-            <span>Qur’an 94:6</span>
-          </blockquote>
-        </Reveal>
+        <Box ref={ref} className={`about-new-container ${inView ? 'fade-in' : ''}`}>
+    
+          <Box className="about-bio-card">
+            <Typography variant="h5" className="bio-heading">
+              My Journey
+            </Typography>
+            
+            <Typography variant="body1" className="bio-text">
+            I am Ar-Ameeff M. Adjarail, and I serve as the Executive Secretary of the Office of the President at Tawi-Tawi Regional Agricultural College. I am also a College Instructor I teaching in the BSIT Department at the college.
 
-        <div className="about-highlights">
-          {highlights.map((item, index) => (
-            <Reveal key={item.label} delay={index * 90} className="metric-card glass-card">
-              <div className="metric-icon">{item.icon}</div>
-              <strong>{item.value}</strong>
-              <span>{item.label}</span>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-
-      <Reveal className="principles-row" delay={120}>
-        {['Build for clarity', 'Design for trust', 'Optimize for people', 'Keep learning'].map((principle, index) => (
-          <div key={principle}><span>0{index + 1}</span>{principle}</div>
-        ))}
-      </Reveal>
-    </section>
+I am a 22-year-old aspiring full-stack developer from Bulacan State University. My passion for programming began at a young age and has since evolved into a deep commitment to creating functional, creative, and user-friendly digital solutions. I specialize in both mobile and web development, and I genuinely enjoy transforming complex problems into elegant code.
+            </Typography>
+    
+            
+            <Typography variant="body1" className="bio-text">
+            Outside of coding, I enjoy spending quality time with my family and friends, and I find comfort in the companionship of my cats. Whether it's solving a technical challenge or learning a new framework, I’m always eager to grow and improve. My journey in tech is fueled by curiosity, creativity, and the desire to make a difference through technology.
+            </Typography>
+            
+            <Box className="bio-philosophy">
+              <Typography variant="subtitle1" className="philosophy-title">
+                My Philosophy
+              </Typography>
+              <Typography variant="body2" className="philosophy-text">
+                "Indeed, with hardship comes ease." – <i>Fa-inna ma'al usri yusra</i> (Qur'an 94:6)."
+              </Typography>
+            </Box>
+            
+            <Box className="bio-details">
+              <Box className="bio-detail-item">
+                <Typography variant="body2" className="bio-detail-label">
+                  <CalendarTodayIcon fontSize="small" style={{ marginRight: '8px', verticalAlign: 'middle' }} />
+                  Experience 3+ Years
+                </Typography>
+              </Box>
+              
+              <Box className="bio-detail-item">
+                <Typography variant="body2" className="bio-detail-label">
+                  <WorkIcon fontSize="small" style={{ marginRight: '8px', verticalAlign: 'middle' }} />
+                  Availability Open to Work
+                </Typography>
+                
+              </Box>
+            </Box>         
+          </Box>
+        </Box>
+      </Container>
+    </Box>
   );
-}
+};
+
+export default About; 

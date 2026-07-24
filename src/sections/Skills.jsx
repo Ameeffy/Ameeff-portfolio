@@ -1,71 +1,113 @@
-import CodeRoundedIcon from '@mui/icons-material/CodeRounded';
-import StorageRoundedIcon from '@mui/icons-material/StorageRounded';
-import PhoneIphoneRoundedIcon from '@mui/icons-material/PhoneIphoneRounded';
-import DesignServicesRoundedIcon from '@mui/icons-material/DesignServicesRounded';
-import SectionHeading from '../components/SectionHeading';
-import Reveal from '../components/Reveal';
+import React from 'react';
+import { Box, Typography, Grid, Container } from '@mui/material';
+import { useInView } from 'react-intersection-observer';
+import '../assets/premium-skills.css';
 
-const skillGroups = [
+
+const skills = [
   {
-    title: 'Frontend engineering',
-    icon: <CodeRoundedIcon />,
-    description: 'Responsive interfaces with strong visual hierarchy, accessibility, and reusable components.',
-    skills: ['HTML', 'CSS', 'JavaScript', 'React', 'Material UI', 'Tailwind CSS'],
+    category: "Frontend Engineering",
+    items: [
+      { name: "HTML", level: 90 },
+      { name: "CSS", level: 85 },
+      { name: "JavaScript", level: 80 },
+      { name: "React", level: 85 },
+      { name: "Material UI", level: 90 }
+    ]
   },
   {
-    title: 'Backend & data',
-    icon: <StorageRoundedIcon />,
-    description: 'Reliable APIs, authentication flows, relational databases, and server-side business logic.',
-    skills: ['Node.js', 'Express', 'MySQL', 'PHP', 'Django', 'REST APIs'],
+    category: "Backend developemnt",
+    items: [
+      { name: "Node.js", level: 95 },
+      { name: "Django", level: 90 },
+      { name: "PHP", level: 90 },
+    ]
   },
   {
-    title: 'Mobile development',
-    icon: <PhoneIphoneRoundedIcon />,
-    description: 'Cross-platform mobile experiences connected to real backend services and data.',
-    skills: ['React Native', 'Expo', 'Android', 'Mobile UI', 'API Integration'],
+    category: "Software Development Tools",
+    items: [
+      { name: "Expo Go App", level: 90 },
+      { name: "Git", level: 90 },
+      { name: "Figma", level: 85 },
+      { name: "VS Code", level: 90 },
+      
+    ]
   },
   {
-    title: 'Product & workflow',
-    icon: <DesignServicesRoundedIcon />,
-    description: 'From requirements and wireframes to Git workflows, deployment, iteration, and support.',
-    skills: ['Figma', 'Git', 'GitHub', 'Render', 'UI/UX', 'System Analysis'],
-  },
+    category: "Mobile Development",
+    items: [
+      { name: "React Native", level: 90 },
+      { name: "Mobile UI Design", level: 85 },
+      { name: "iOS Development", level: 75 },
+      { name: "Android Development", level: 80 }
+      
+    ]
+  }
 ];
 
 export default function Skills() {
+  const { ref, inView } = useInView({
+    threshold: 0.2,
+    triggerOnce: true,
+  });
+
   return (
-    <section id="skills" className="content-section section-shell">
-      <SectionHeading
-        eyebrow="Capabilities"
-        title="A practical stack for"
-        accent="end-to-end delivery."
-        description="I work across the full product lifecycle—interface, logic, data, deployment, and continuous improvement."
-      />
+    <Box component="section" id="skills" className="skills-section" ref={ref}>
+      <Container>
+     
+        <Box className="skills-header">
+          <Typography variant="h2" component="h2" className="skills-title">
+            Skills
+          </Typography>
+          <Typography 
+            className="skills-subtitle" 
+            sx={{ textAlign: 'center', maxWidth: '700px', mx: 'auto' }}
+          >
+            My technical expertise spans multiple domains from frontend to DevOps with a focus on creating exceptional user experiences
+          </Typography>
+        </Box>
 
-      <div className="skills-grid">
-        {skillGroups.map((group, index) => (
-          <Reveal key={group.title} delay={index * 90} className="skill-card glass-card">
-            <div className="skill-card-top">
-              <span className="skill-card-icon">{group.icon}</span>
-              <span className="skill-card-index">0{index + 1}</span>
-            </div>
-            <h3>{group.title}</h3>
-            <p>{group.description}</p>
-            <div className="skill-tags">
-              {group.skills.map((skill) => <span key={skill}>{skill}</span>)}
-            </div>
-          </Reveal>
-        ))}
-      </div>
 
-      <Reveal className="toolbelt glass-card" delay={140}>
-        <span className="card-label">CURRENT TOOLBELT</span>
-        <div className="toolbelt-track">
-          {['VS Code', 'GitHub', 'Postman', 'phpMyAdmin', 'XAMPP', 'Figma', 'Render', 'Expo Go'].map((tool) => (
-            <span key={tool}>{tool}</span>
+        <Grid container spacing={4} className="skills-container">
+          {skills.map((category, index) => (
+            <Grid 
+              item 
+              xs={12} 
+              sm={6}
+              md={6} 
+              lg={4}
+              key={category.category}
+              className="skill-category-container"
+              style={{ animationDelay: `${index * 0.2}s` }}
+            >
+              <Box className={`skill-category ${inView ? 'fade-in' : ''}`}>
+                <Box className="skill-category-header">
+                  <Typography className="skill-category-title">
+                    {category.category}
+                  </Typography>
+                </Box>
+              
+                <Box className="skill-list">
+                  {category.items.map((skill) => (
+                    <Box className="skill-item" key={skill.name}>
+                      <Box className="skill-info">
+                        <Typography className="skill-name">{skill.name}</Typography>
+                        <Typography className="skill-percentage">{skill.level}%</Typography>
+                      </Box>
+                      <Box className="skill-bar-bg">
+                        <Box 
+                          className="skill-bar-fill" 
+                          style={{ width: `${skill.level}%` }}
+                        ></Box>
+                      </Box>
+                    </Box>
+                  ))}
+                </Box>
+              </Box>
+            </Grid>
           ))}
-        </div>
-      </Reveal>
-    </section>
+        </Grid>
+      </Container>
+    </Box>
   );
-}
+} 
