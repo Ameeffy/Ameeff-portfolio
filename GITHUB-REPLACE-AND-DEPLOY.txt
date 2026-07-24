@@ -1,0 +1,96 @@
+AMEEFFY PORTFOLIO — REPLACE THE OLD GITHUB VERSION
+===================================================
+
+The ZIP is intentionally clean: package.json, src, public, index.html, and configuration files are at the project root. There is no duplicate nested Ameeff-portfolio folder.
+
+A. EXTRACT THE NEW ZIP
+----------------------
+Extract it as:
+C:\Users\arame\Desktop\pagtripan]\Ameeff-portfolio-redesign-ready
+
+Confirm that this folder directly contains:
+- src
+- public
+- package.json
+- index.html
+- netlify.toml
+
+B. OPEN COMMAND PROMPT AND ENTER THE EXISTING GIT REPOSITORY
+------------------------------------------------------------
+cd /d "C:\Users\arame\Desktop\pagtripan]\Ameeff-portfolio"
+
+git status
+git pull origin main
+
+Optional safety backup:
+git branch backup-before-redesign
+
+C. DELETE THE OLD WORKING FILES BUT KEEP THE HIDDEN .git FOLDER
+---------------------------------------------------------------
+powershell -NoProfile -Command "Get-ChildItem -Force | Where-Object { $_.Name -ne '.git' } | Remove-Item -Recurse -Force"
+
+Do not manually delete .git. It contains the connection and history for the GitHub repository.
+
+D. COPY THE COMPLETE NEW PROJECT INTO THE EXISTING REPOSITORY
+--------------------------------------------------------------
+robocopy "C:\Users\arame\Desktop\pagtripan]\Ameeff-portfolio-redesign-ready" "." /E /XD node_modules dist .git
+
+After copying, run:
+dir
+
+You should directly see src, public, package.json, index.html, README.md, and netlify.toml. There must not be another Ameeff-portfolio folder inside.
+
+E. INSTALL AND TEST
+-------------------
+npm install
+npm run dev
+
+Open the Vite URL shown in Command Prompt. Test light mode, dark mode, mobile navigation, projects, certificates, memberships, and contact form.
+
+Press Ctrl+C, then test the production build:
+npm run build
+npm run preview
+
+Press Ctrl+C after checking the preview.
+
+F. COMMIT THE COMPLETE REPLACEMENT
+----------------------------------
+git status
+git add -A
+git commit -m "Replace portfolio with red white credential dashboard redesign"
+git push origin main
+
+G. IF GITHUB AUTHENTICATION IS REQUIRED
+----------------------------------------
+gh auth status
+
+If not logged in:
+gh auth login
+
+Choose:
+- GitHub.com
+- HTTPS
+- Authenticate Git with GitHub credentials: Yes
+- Login with a web browser
+
+Then run:
+git push origin main
+
+H. NETLIFY
+----------
+The connected Netlify project should deploy the new main branch automatically.
+
+Confirm:
+- Production branch: main
+- Base directory: empty
+- Build command: npm run build
+- Publish directory: dist
+
+If the old design remains:
+Netlify > Deploys > Trigger deploy > Clear cache and deploy site
+
+Then open the site in an Incognito window or press Ctrl+F5.
+
+IMPORTANT SECURITY CHECK
+------------------------
+Before pushing, confirm no .env file, app password, API key, database password, or access token appears in git status.
