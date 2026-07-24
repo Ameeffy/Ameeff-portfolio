@@ -85,9 +85,9 @@ export const projects = [
     title: 'TRAC Certification & Event Management System',
     type: 'Enterprise web system',
     description: 'A role-based platform for appointments, events, QR-verifiable certificates, evaluations, email notifications, analytics, audit logs, and document workflows.',
-    image: '/assets/projects/trac-certification.svg',
+    image: '/assets/projects/Screenshot (76).png',
     technologies: ['Node.js', 'MySQL', 'QR Verification', 'Analytics'],
-    live: '/livedemoexpired',
+    live: 'https://trac-qr-certificate-system-v14-1.onrender.com/',
   },
 ];
 
